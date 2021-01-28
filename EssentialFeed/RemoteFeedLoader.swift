@@ -13,7 +13,6 @@ public protocol HTTPClient {
 
 public final class RemoteFeedLoader {
     private let url: URL
-
     private let client: HTTPClient
     
     public init(url: URL, client: HTTPClient) {
@@ -23,7 +22,6 @@ public final class RemoteFeedLoader {
     
     public func load() {
         client.get(from: url)
-        //client.get(from: url)
     }
     
 }
