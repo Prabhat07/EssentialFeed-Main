@@ -35,7 +35,7 @@ class RemoteFeedLoaderTest: XCTestCase {
         XCTAssertEqual(client.requestURLs, [url, url])
     }
     
-    func test_loadError_formHttpClientError() {
+    func test_load_deliversErrorOnClientError() {
         let url = URL(string: "https://a-test.com")!
         let (sut, client) = makeSUT(url: url)
         client.error = NSError(domain: "Test", code: 0)
