@@ -68,6 +68,19 @@ class RemoteFeedLoaderTest: XCTestCase {
         })
     }
     
+    func test_load_deliversErrorWith200ResponseWithInvalidJsonlist() {
+        let url = URL(string: "https://a-test.com")!
+        let (sut, client) = makeSUT(url: url)
+        
+        var capturesResults = [RemoteFeedLoader.Result]()
+        sut.load { capturesResults.append($0) }
+        
+        let emptyListValidJson = "{\"items\": []}".data(using: .utf8)!
+        client.complete(withStatusCode: 200, data: emptyListValidJson)
+        
+        XCTAssertEqual(capturesResults, [.success([])])
+    }
+    
     //MARK: - Test Helpers
     
     func expect(_ sut: RemoteFeedLoader, with error: RemoteFeedLoader.Error, when action:() -> Void, file: StaticString = #filePath, line: UInt = #line) {
