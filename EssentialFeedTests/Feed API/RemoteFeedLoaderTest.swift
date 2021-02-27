@@ -39,7 +39,7 @@ class RemoteFeedLoaderTest: XCTestCase {
         let url = URL(string: "https://a-test.com")!
         let (sut, client) = makeSUT(url: url)
         
-        expect(sut, with: .failuer(.connectivity), when: {
+        expect(sut, with: failuer(.connectivity), when: {
             let error = NSError(domain: "Test", code: 0)
             client.complete(with: error)
         })
@@ -52,7 +52,7 @@ class RemoteFeedLoaderTest: XCTestCase {
         let samples = [199, 201, 300, 400,  500, 404]
         let data = makeJSONData([])
         samples.enumerated().forEach { index, code in
-            expect(sut, with: .failuer(.invalidData), when: {
+            expect(sut, with: failuer(.invalidData), when: {
                 client.complete(withStatusCode: 400, data: data, at: index)
             })
         }
@@ -62,7 +62,7 @@ class RemoteFeedLoaderTest: XCTestCase {
         let url = URL(string: "https://a-test.com")!
         let (sut, client) = makeSUT(url: url)
         
-        expect(sut, with: .failuer(.invalidData), when: {
+        expect(sut, with: failuer(.invalidData), when: {
             let data = "Invalid Json".data(using: .utf8)
             client.complete(withStatusCode: 400, data: data!)
         })
@@ -125,8 +125,8 @@ class RemoteFeedLoaderTest: XCTestCase {
             case let (.success(receivedItems), .success(expectedItems)):
             XCTAssertEqual(receivedItems, expectedItems, file: file, line: line)
                 
-            case let (.failuer(receivedError), .failuer(ecpectedError)):
-            XCTAssertEqual(receivedError, ecpectedError, file: file, line: line)
+            case let (.failuer(receivedError as RemoteFeedLoader.Error), .failuer(expectedError as RemoteFeedLoader.Error)):
+            XCTAssertEqual(receivedError, expectedError, file: file, line: line)
                 
             default:
             XCTFail("Expected result \(expectedResult) got \(receivedResult) insted", file: file, line: line)
@@ -140,6 +140,10 @@ class RemoteFeedLoaderTest: XCTestCase {
         
         wait(for: [exp], timeout: 1.0)
         
+    }
+    
+    private func failuer(_ error: RemoteFeedLoader.Error) -> RemoteFeedLoader.Result {
+        return .failuer(error)
     }
     
     private func makeItem(id: UUID, description: String? = nil, location: String? = nil, imageUrl: URL) -> (model: FeedItem, json: [String: Any]) {
