@@ -117,7 +117,7 @@ class RemoteFeedLoaderTest: XCTestCase {
     
     func expect(_ sut: RemoteFeedLoader, with expectedResult: RemoteFeedLoader.Result, when action:() -> Void, file: StaticString = #filePath, line: UInt = #line) {
         
-        let exp = expectation(description: "Wait for load")
+        //let exp = expectation(description: "Wait for load")
         
         sut.load { receivedResult in
             switch (receivedResult, expectedResult) {
@@ -133,12 +133,12 @@ class RemoteFeedLoaderTest: XCTestCase {
                 
             }
             
-            exp.fulfill()
+            //exp.fulfill()
         }
         
         action()
         
-        wait(for: [exp], timeout: 1.0)
+        //wait(for: [exp], timeout: 2.0)
         
     }
     
