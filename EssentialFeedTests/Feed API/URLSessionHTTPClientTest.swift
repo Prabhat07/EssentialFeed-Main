@@ -33,7 +33,7 @@ class URLSessionHTTPClientTest: XCTestCase {
         URLProtocolStub.startInterceptingRquest()
         let url = URL(string: "https//:any-url/.com")!
         let error = NSError(domain: "Any error", code: 0)
-        URLProtocolStub.stub(url: url, data: nil, response: nil, error: error)
+        URLProtocolStub.stub(data: nil, response: nil, error: error)
         
         let sut = URLSessionHTTPClient()
         
@@ -57,7 +57,7 @@ class URLSessionHTTPClientTest: XCTestCase {
     // MARK: - Helpers
     private class URLProtocolStub: URLProtocol {
         
-        private static var stubs = [URL: Stub]()
+        private static var stubs: Stub?
         
         private struct Stub {
             let data: Data?
@@ -65,8 +65,8 @@ class URLSessionHTTPClientTest: XCTestCase {
             let error: NSError?
         }
         
-        static func stub(url: URL, data: Data?, response: URLResponse?, error: NSError?) {
-            stubs[url] = Stub(data: data, response: response, error: error)
+        static func stub(data: Data?, response: URLResponse?, error: NSError?) {
+            stubs = Stub(data: data, response: response, error: error)
         }
         
         static func startInterceptingRquest() {
@@ -75,13 +75,11 @@ class URLSessionHTTPClientTest: XCTestCase {
         
         static func stopInterceptingRequest() {
             URLProtocol.unregisterClass(URLProtocolStub.self)
-            stubs = [:]
+            stubs = nil
         }
         
         override class func canInit(with request: URLRequest) -> Bool {
-            guard let url = request.url else { return false }
-            
-            return URLProtocolStub.stubs[url] != nil
+            return true
         }
         
         override class func canonicalRequest(for request: URLRequest) -> URLRequest {
@@ -89,7 +87,7 @@ class URLSessionHTTPClientTest: XCTestCase {
         }
         
         override func startLoading() {
-            guard let url = request.url, let stub = URLProtocolStub.stubs[url] else {
+            guard let stub = URLProtocolStub.stubs else {
                 return
             }
             
