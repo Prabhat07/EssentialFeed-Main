@@ -23,13 +23,18 @@ class LocalFeedLoader {
             if let cacheDeletionError = error {
                 completion(cacheDeletionError)
             } else {
-                self.store.save(items, timeStamp: self.currentDate(), completion: { [weak self] error in
-                    guard self != nil else { return }
-                    completion(error)
-                })
+                self.cache(items, completion: completion)
             }
         }
     }
+    
+    func cache(_ items: [FeedItem], completion: @escaping (Error?) -> Void) {
+        store.save(items, timeStamp: currentDate(), completion: { [weak self] error in
+            guard self != nil else { return }
+            completion(error)
+        })
+    }
+    
 }
 
 protocol FeedStore {
