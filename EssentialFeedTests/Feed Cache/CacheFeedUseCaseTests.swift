@@ -131,6 +131,26 @@ class CacheFeedUseCaseTests: XCTestCase {
         XCTAssertEqual(receivedError as NSError?, expectedError, file: file, line: line)
     }
     
+    private func anyUrl() -> URL {
+        return URL(string: "https//:any-url/.com")!
+    }
+    
+    private func anyNSError() -> NSError {
+        return NSError(domain: "Any Error", code: 0)
+    }
+    
+    private func uniqueImae() -> FeedImage {
+        FeedImage(id: UUID(), description: "any", location: "any", url: anyUrl())
+    }
+    
+    private func uniqueImageFeed() -> (models: [FeedImage], local: [LocalFeedImage]) {
+        let feed = [uniqueImae(), uniqueImae()]
+        
+        let localFeed = feed.map { LocalFeedImage(id: $0.id, description: $0.description, location: $0.location, url: $0.url) }
+        
+        return (feed, localFeed)
+    }
+    
     private class FeedStoreSpy: FeedStore {
         private var deletionCompletions = [DeleteCompletion]()
         private var insertionCompletions = [DeleteCompletion]()
@@ -167,27 +187,6 @@ class CacheFeedUseCaseTests: XCTestCase {
         func completeInsertionSuccesfully(at index: Int = 0) {
             insertionCompletions[index](nil)
         }
-    }
-
-    
-    private func anyUrl() -> URL {
-        return URL(string: "https//:any-url/.com")!
-    }
-    
-    private func anyNSError() -> NSError {
-        return NSError(domain: "Any Error", code: 0)
-    }
-    
-    private func uniqueImae() -> FeedImage {
-        FeedImage(id: UUID(), description: "any", location: "any", url: anyUrl())
-    }
-    
-    private func uniqueImageFeed() -> (models: [FeedImage], local: [LocalFeedImage]) {
-        let feed = [uniqueImae(), uniqueImae()]
-        
-        let localFeed = feed.map { LocalFeedImage(id: $0.id, description: $0.description, location: $0.location, url: $0.url) }
-        
-        return (feed, localFeed)
     }
     
 }
