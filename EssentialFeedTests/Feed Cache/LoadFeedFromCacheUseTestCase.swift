@@ -16,6 +16,14 @@ class LoadFeedFromCacheUseTestCase: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [])
     }
     
+    func test_laod_requestCacheRetrieval() {
+        let (sut, store) = makeSut()
+        
+        sut.load()
+        
+        XCTAssertEqual(store.receivedMessages, [.retriev])
+    }
+    
     // MARKS: - Helpers
     
     private func makeSut(currentDate:@escaping () -> Date = Date.init, file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalFeedLoader, store: FeedStoreSpy) {
