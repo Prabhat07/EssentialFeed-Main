@@ -41,6 +41,8 @@ public final class LocalFeedLoader {
         store.retriev { error in
             if let error = error {
                 completion(.failuer(error))
+            } else {
+                completion(.success([]))
             }
         }
     }
