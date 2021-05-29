@@ -47,13 +47,13 @@ class FeedStoreSpy: FeedStore {
         insertionCompletions[index](nil)
     }
     
-    func retriev(completion: @escaping RetrievalCompletion) {
+    func retrieve(completion: @escaping RetrievalCompletion) {
         retrievalCompletions.append(completion)
         receivedMessages.append(.retriev)
     }
     
     func completeRetrieval(with error: NSError, at index: Int = 0) {
-        retrievalCompletions[index](.failuer(error))
+        retrievalCompletions[index](.failure(error))
     }
     
     func completeWithEmptyCache(at index: Int = 0) {

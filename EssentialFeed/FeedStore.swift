@@ -8,7 +8,7 @@
 import Foundation
 
 public enum RetrievalCacheFeedResult {
-    case failuer(Error)
+    case failure(Error)
     case found(feed: [LocalFeedImage], timeStamp: Date)
     case empty
 }
@@ -20,6 +20,6 @@ public protocol FeedStore {
 
     func deleteCacheFeed(completion:@escaping DeleteCompletion)
     func save(_ feed: [LocalFeedImage], timeStamp: Date, completion:@escaping InsertCompletion)
-    func retriev(completion: @escaping RetrievalCompletion)
+    func retrieve(completion: @escaping RetrievalCompletion)
 }
 
