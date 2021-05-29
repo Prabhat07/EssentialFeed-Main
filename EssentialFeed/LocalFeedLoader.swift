@@ -38,27 +38,26 @@ public final class LocalFeedLoader {
     }
     
     public func load(completion: @escaping (LoadResult) -> Void) {
-            store.retrieve { [unowned self] result in
-                switch result {
-                case let .failure(error):
-                    completion(.failure(error))
-
-                case let .found(feed, timestamp) where self.validate(timestamp):
-                    completion(.success(feed.toModels()))
-
-                case .found, .empty:
-                    completion(.success([]))
-                }
+        store.retrieve { [unowned self] result in
+            switch result {
+            case let .failure(error):
+                completion(.failure(error))
+                
+            case let .found(feed, timestamp) where self.validate(timestamp):
+                completion(.success(feed.toModels()))
+                
+            case .found, .empty:
+                completion(.success([]))
             }
         }
+    }
 
-    
     private func validate(_ timeStamp: Date) -> Bool {
         let calender = Calendar(identifier: .indian)
         guard let maxAge = calender.date(byAdding: .day, value: 7, to: timeStamp) else {
             return false
         }
-        return currentDate() > maxAge
+        return currentDate() < maxAge
     }
     
 }
