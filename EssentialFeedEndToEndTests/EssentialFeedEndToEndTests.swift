@@ -22,7 +22,7 @@ class EssentialFeedEndToEndTests: XCTestCase {
             XCTAssertEqual(imageFeed[5], expectedImage(at: 5))
             XCTAssertEqual(imageFeed[6], expectedImage(at: 6))
             XCTAssertEqual(imageFeed[7], expectedImage(at: 7))
-        case let .failuer(error)?:
+        case let .failure(error)?:
             XCTFail("Expected Sucess got \(error) instead")
         default:
             XCTFail("Expected sucess get nil result")
