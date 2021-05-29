@@ -9,7 +9,7 @@ import Foundation
 
 public enum LoadFeedResult {
     case success([FeedImage])
-    case failuer(Error)
+    case failure(Error)
 }
 
 public protocol FeedLoader {

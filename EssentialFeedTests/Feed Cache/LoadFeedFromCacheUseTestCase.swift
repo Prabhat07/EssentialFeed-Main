@@ -27,7 +27,7 @@ class LoadFeedFromCacheUseTestCase: XCTestCase {
     func test_laod_failsOnRetrievalError() {
         let (sut, store) = makeSut()
         let retrievalError = anyNSError()
-        expect(sut, completeWith: .failuer(retrievalError), when: {
+        expect(sut, completeWith: .failure(retrievalError), when: {
             store.completeRetrieval(with: retrievalError)
         })
     }
@@ -39,13 +39,24 @@ class LoadFeedFromCacheUseTestCase: XCTestCase {
         })
     }
     
-    func test_laod_deliversImagesOnLessThanSevenDaysOldCache() {
+    func test_load_deliversCachedImagesOnLessThanSevenDaysOldCache() {
+            let feed = uniqueImageFeed()
+            let fixedCurrentDate = Date()
+            let lessThanSevenDaysOldTimestamp = fixedCurrentDate.adding(days: -7).adding(seconds: 1)
+            let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
+
+            expect(sut, completeWith: .success(feed.models), when: {
+                store.completeRetrieval(with: feed.local, timeStamp: lessThanSevenDaysOldTimestamp)
+            })
+        }
+    
+    func test_laod_noImagesDeliversOnSevenDaysOldCache() {
         let feed = uniqueImageFeed()
         let fixedCurrentDate = Date()
-        let lessThanSevendayOldTimeStamp = fixedCurrentDate.adding(days: -7).adding(seconds: 1)
+        let sevendayOldTimeStamp = fixedCurrentDate.adding(days: -7)
         let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
-        expect(sut, completeWith: .success(feed.models), when: {
-            store.completeRetrieval(with: feed.local, timeStamp: lessThanSevendayOldTimeStamp)
+        expect(sut, completeWith: .success([]), when: {
+            store.completeRetrieval(with: feed.local, timeStamp: sevendayOldTimeStamp)
         })
     }
     
@@ -65,7 +76,7 @@ class LoadFeedFromCacheUseTestCase: XCTestCase {
             switch (receivedresult, expectedResult) {
                 case let (.success(receivedImages), .success(expectedImages)):
                     XCTAssertEqual(receivedImages, expectedImages, file: file, line: line)
-            case let (.failuer(receivedError as NSError), .failuer(expectedError as NSError)):
+            case let (.failure(receivedError as NSError), .failure(expectedError as NSError)):
                 XCTAssertEqual(receivedError, expectedError, file: file, line: line)
             default:
                 XCTFail("Expected result \(expectedResult) got \(receivedresult), instead")
@@ -99,13 +110,11 @@ class LoadFeedFromCacheUseTestCase: XCTestCase {
 }
 
 private extension Date {
-    
     func adding(days: Int) -> Date {
         return Calendar(identifier: .gregorian).date(byAdding: .day, value: days, to: self)!
     }
-    
+
     func adding(seconds: TimeInterval) -> Date {
         return self + seconds
     }
-    
 }

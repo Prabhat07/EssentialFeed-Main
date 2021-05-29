@@ -125,7 +125,7 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
             case let (.success(receivedItems), .success(expectedItems)):
             XCTAssertEqual(receivedItems, expectedItems, file: file, line: line)
                 
-            case let (.failuer(receivedError as RemoteFeedLoader.Error), .failuer(expectedError as RemoteFeedLoader.Error)):
+            case let (.failure(receivedError as RemoteFeedLoader.Error), .failure(expectedError as RemoteFeedLoader.Error)):
             XCTAssertEqual(receivedError, expectedError, file: file, line: line)
                 
             default:
@@ -143,7 +143,7 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
     }
     
     private func failuer(_ error: RemoteFeedLoader.Error) -> RemoteFeedLoader.Result {
-        return .failuer(error)
+        return .failure(error)
     }
     
     private func makeItem(id: UUID, description: String? = nil, location: String? = nil, imageUrl: URL) -> (model: FeedImage, json: [String: Any]) {
