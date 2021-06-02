@@ -39,34 +39,34 @@ class LoadFeedFromCacheUseTestCase: XCTestCase {
         })
     }
     
-    func test_load_deliversCachedImagesOnLessThanSevenDaysOldCache() {
+    func test_load_deliversCachedImagesOnNonExpireCache() {
         let feed = uniqueImageFeed()
         let fixedCurrentDate = Date()
-        let lessThanSevenDaysOldTimestamp = fixedCurrentDate.adding(days: -7).adding(seconds: 1)
+        let nonExpireTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
         let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
         
         expect(sut, completeWith: .success(feed.models), when: {
-            store.completeRetrieval(with: feed.local, timeStamp: lessThanSevenDaysOldTimestamp)
+            store.completeRetrieval(with: feed.local, timeStamp: nonExpireTimestamp)
         })
     }
     
-    func test_laod_noImagesDeliversOnSevenDaysOldCache() {
+    func test_laod_noImagesDeliversOnExpirationCache() {
         let feed = uniqueImageFeed()
         let fixedCurrentDate = Date()
-        let sevendayOldTimeStamp = fixedCurrentDate.adding(days: -7)
+        let expirationTimeStamp = fixedCurrentDate.minusFeedCacheMaxAge()
         let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
         expect(sut, completeWith: .success([]), when: {
-            store.completeRetrieval(with: feed.local, timeStamp: sevendayOldTimeStamp)
+            store.completeRetrieval(with: feed.local, timeStamp: expirationTimeStamp)
         })
     }
     
     func test_laod_noImagesDeliversOnMoreThanSevenDaysOldCache() {
         let feed = uniqueImageFeed()
         let fixedCurrentDate = Date()
-        let moreThanSevenDaysOldTimestamp = fixedCurrentDate.adding(days: -7).adding(seconds: -1)
+        let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
         let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
         expect(sut, completeWith: .success([]), when: {
-            store.completeRetrieval(with: feed.local, timeStamp: moreThanSevenDaysOldTimestamp)
+            store.completeRetrieval(with: feed.local, timeStamp: expiredTimestamp)
         })
     }
     
