@@ -8,13 +8,16 @@
 import Foundation
 
 public final class FeedCachePolicy {
-    private let calender = Calendar(identifier: .gregorian)
     
-    private var maxCacheAgeInDays : Int {
+    private init() { }
+    
+    private static let calender = Calendar(identifier: .gregorian)
+    
+    private static var maxCacheAgeInDays : Int {
         return 7
     }
     
-    func validate(_ timeStamp: Date, against date: Date) -> Bool {
+    static func validate(_ timeStamp: Date, against date: Date) -> Bool {
         guard let maxAge = calender.date(byAdding: .day, value: maxCacheAgeInDays, to: timeStamp) else {
             return false
         }
@@ -25,7 +28,6 @@ public final class FeedCachePolicy {
 public final class LocalFeedLoader {
     private let store: FeedStore
     private let currentDate: () -> Date
-    private let feedCachePolicy = FeedCachePolicy()
     
     public init(store: FeedStore, currentDate: @escaping () -> Date) {
         self.store = store
@@ -66,7 +68,7 @@ extension LocalFeedLoader: FeedLoader {
             switch result {
             case let .failure(error):
                 completion(.failure(error))
-            case let .found(feed, timestamp) where self.feedCachePolicy.validate(timestamp, against: self.currentDate()):
+            case let .found(feed, timestamp) where FeedCachePolicy.validate(timestamp, against: self.currentDate()):
                 completion(.success(feed.toModels()))
             case .found, .empty:
                 completion(.success([]))
@@ -84,7 +86,7 @@ extension LocalFeedLoader {
             switch result {
             case .failure:
                 self.store.deleteCacheFeed { _ in }
-            case let .found(feed: _, timeStamp: timeStamp) where !self.feedCachePolicy.validate(timeStamp, against: self.currentDate()):
+            case let .found(feed: _, timeStamp: timeStamp) where !FeedCachePolicy.validate(timeStamp, against: self.currentDate()):
                 self.store.deleteCacheFeed { _ in }
             case .empty, .found: break
             }
