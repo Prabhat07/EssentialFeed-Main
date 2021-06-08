@@ -11,7 +11,7 @@ import EssentialFeed
 class CodableFeedStore {
     
     private struct Cache: Codable {
-        let feed: [CodableFeedStore]
+        let feed: [CodableFeedImage]
         let timeStamp: Date
         
         var localFeed: [LocalFeedImage] {
@@ -20,7 +20,7 @@ class CodableFeedStore {
         
     }
     
-    private struct CodableFeedStore: Codable {
+    private struct CodableFeedImage: Codable {
         private let id: UUID
         private let description: String?
         private let location: String?
@@ -52,7 +52,7 @@ class CodableFeedStore {
     
     func insert(_ feed: [LocalFeedImage], timeStamp: Date, completion:@escaping FeedStore.InsertCompletion) {
         let encoder = JSONEncoder()
-        let cache = Cache(feed: feed.map(CodableFeedStore.init), timeStamp: timeStamp)
+        let cache = Cache(feed: feed.map(CodableFeedImage.init), timeStamp: timeStamp)
         let encode = try! encoder.encode(cache)
         try! encode.write(to: storeUrl)
         completion(nil)
@@ -69,7 +69,7 @@ class CodableFeedStoreTests: XCTestCase {
     }
     
     func test_retrieve_deliverEmptyOnEmptyCache() {
-        let sut = CodableFeedStore()
+        let sut = makeSUT()
         
         let exp = expectation(description: "Wait for retrieve completion")
         
@@ -88,7 +88,7 @@ class CodableFeedStoreTests: XCTestCase {
     }
     
     func test_retrieve_hasNoSideEffectsOnEmptyCache() {
-        let sut = CodableFeedStore()
+        let sut = makeSUT()
         
         let exp = expectation(description: "Wait for retrieve completion")
         
@@ -109,7 +109,7 @@ class CodableFeedStoreTests: XCTestCase {
     } 
     
     func test_retrieve_afterInsertingValueToEmptyCache_returnInsertedValues() {
-        let sut = CodableFeedStore()
+        let sut = makeSUT()
         let feed = uniqueImageFeed().local
         let timeStamp = Date()
         let exp = expectation(description: "Wait for retrieve completion")
@@ -136,4 +136,11 @@ class CodableFeedStoreTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
 
+    
+    //MARK: Helpers
+    
+    func makeSUT() -> CodableFeedStore {
+        return CodableFeedStore()
+    }
+    
 }
