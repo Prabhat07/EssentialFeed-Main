@@ -95,11 +95,7 @@ class CodableFeedStoreTests: XCTestCase {
         let feed = uniqueImageFeed().local
         let timeStamp = Date()
         
-        let exp = expectation(description: "Wait for cache insertion")
-        sut.insert(feed, timeStamp: timeStamp)  { insertionError in
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1.0)
+        inser((feed, timeStamp), to: sut)
         
         expect(sut, toRetrive: .found(feed: feed, timeStamp: timeStamp))
     }
@@ -109,17 +105,11 @@ class CodableFeedStoreTests: XCTestCase {
         let feed = uniqueImageFeed().local
         let timeStamp = Date()
         
-        let exp = expectation(description: "Wait for cache insertion")
-        sut.insert(feed, timeStamp: timeStamp)  { insertionError in
-            XCTAssertNil(insertionError, "Feed inserted succesfullty")
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1.0)
+        inser((feed, timeStamp), to: sut)
         
         expect(sut, toRetrieveTwice: .found(feed: feed, timeStamp: timeStamp))
     }
 
-    
     //MARK: Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
@@ -133,6 +123,14 @@ class CodableFeedStoreTests: XCTestCase {
         expect(sut, toRetrive: expectedResult)
     }
     
+    private func inser(_ cache:(feed: [LocalFeedImage], timeStamp: Date), to sut: CodableFeedStore,  file: StaticString = #file, line: UInt = #line) {
+        let exp = expectation(description: "Wait for cache insertion")
+        sut.insert(cache.feed, timeStamp: cache.timeStamp)  { insertionError in
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
+
     private func expect(_ sut: CodableFeedStore, toRetrive expectedResult: RetrievalCacheFeedResult, file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "Wait for retrieve completion")
         
@@ -141,8 +139,8 @@ class CodableFeedStoreTests: XCTestCase {
             case (.empty, .empty):
                 break
             case let (.found(expected), .found(feed: retrieved)):
-                XCTAssertEqual(expected.feed, retrieved.feed)
-                XCTAssertEqual(expected.timeStamp, retrieved.timeStamp)
+                XCTAssertEqual(expected.feed, retrieved.feed, file: file, line: line)
+                XCTAssertEqual(expected.timeStamp, retrieved.timeStamp, file: file, line: line)
                 
             default:
                 XCTFail("Expected to retrieve \(expectedResult), got \(retrieveResult) instead")
