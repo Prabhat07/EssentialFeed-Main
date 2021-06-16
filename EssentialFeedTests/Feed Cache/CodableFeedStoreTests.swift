@@ -49,9 +49,14 @@ class CodableFeedStore {
         guard let data = try? Data(contentsOf: storeUrl) else {
            return completion(.empty)
         }
-        let decoder = JSONDecoder()
-        let cache  = try! decoder.decode(Cache.self, from: data)
-        completion(.found(feed: cache.localFeed, timeStamp: cache.timeStamp))
+        do {
+            let decoder = JSONDecoder()
+            let cache  = try decoder.decode(Cache.self, from: data)
+            completion(.found(feed: cache.localFeed, timeStamp: cache.timeStamp))
+        } catch {
+            completion(.failure(anyNSError()))
+        }
+        
     }
     
     func insert(_ feed: [LocalFeedImage], timeStamp: Date, completion:@escaping FeedStore.InsertCompletion) {
@@ -90,7 +95,7 @@ class CodableFeedStoreTests: XCTestCase {
         expect(sut, toRetrieveTwice: .empty)
     } 
     
-    func test_retrieve_afterInsertingValueToEmptyCache_returnInsertedValues() {
+    func test_retrieve_deliversFoundValuesOnNonEmptyCache() {
         let sut = makeSUT()
         let feed = uniqueImageFeed().local
         let timeStamp = Date()
@@ -110,6 +115,14 @@ class CodableFeedStoreTests: XCTestCase {
         expect(sut, toRetrieveTwice: .found(feed: feed, timeStamp: timeStamp))
     }
 
+    func test_retrieve_deliversFailuerOnRetrievalError() {
+        let sut = makeSUT()
+        
+        try! "invalid data".write(to: testSpecificStoreUrl(), atomically: false, encoding: .utf8)
+        
+        expect(sut, toRetrive: .failure(anyNSError()))
+    }
+    
     //MARK: Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
@@ -136,7 +149,7 @@ class CodableFeedStoreTests: XCTestCase {
         
         sut.retrieve { retrieveResult in
             switch (expectedResult, retrieveResult) {
-            case (.empty, .empty):
+            case (.empty, .empty), (.failure, .failure):
                 break
             case let (.found(expected), .found(feed: retrieved)):
                 XCTAssertEqual(expected.feed, retrieved.feed, file: file, line: line)
