@@ -167,7 +167,7 @@ class CodableFeedStoreTests: XCTestCase {
         let sut = makeSUT()
         
         let deletionError = deleteCache(from: sut)
-        XCTAssertNil(deletionError, "DeleteSuccessFully")
+        XCTAssertNil(deletionError, "Delete Cache SuccessFully")
         expect(sut, toRetrive: .empty)
     }
     
