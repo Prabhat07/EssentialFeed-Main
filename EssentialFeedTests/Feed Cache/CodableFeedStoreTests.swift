@@ -201,14 +201,14 @@ class CodableFeedStoreTests: XCTestCase {
     
     //MARK: Helpers
     
-    private func makeSUT(storeURL: URL? = nil, file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
+    private func makeSUT(storeURL: URL? = nil, file: StaticString = #file, line: UInt = #line) -> FeedStore {
         let sut = CodableFeedStore(storeUrl: storeURL ?? testSpecificStoreUrl())
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
     
     @discardableResult
-    private func insert(_ cache:(feed: [LocalFeedImage], timeStamp: Date), to sut: CodableFeedStore,  file: StaticString = #file, line: UInt = #line) -> Error? {
+    private func insert(_ cache:(feed: [LocalFeedImage], timeStamp: Date), to sut: FeedStore,  file: StaticString = #file, line: UInt = #line) -> Error? {
         let exp = expectation(description: "Wait for cache insertion")
         var insertionError: Error?
         sut.insert(cache.feed, timeStamp: cache.timeStamp)  { receiveError in
@@ -219,12 +219,12 @@ class CodableFeedStoreTests: XCTestCase {
         return insertionError
     }
 
-    private func expect(_ sut:CodableFeedStore, toRetrieveTwice expectedResult: RetrievalCacheFeedResult, file: StaticString = #file, line: UInt = #line) {
+    private func expect(_ sut: FeedStore, toRetrieveTwice expectedResult: RetrievalCacheFeedResult, file: StaticString = #file, line: UInt = #line) {
         expect(sut, toRetrive: expectedResult)
         expect(sut, toRetrive: expectedResult)
     }
     
-    private func expect(_ sut: CodableFeedStore, toRetrive expectedResult: RetrievalCacheFeedResult, file: StaticString = #file, line: UInt = #line) {
+    private func expect(_ sut: FeedStore, toRetrive expectedResult: RetrievalCacheFeedResult, file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "Wait for retrieve completion")
         
         sut.retrieve { retrieveResult in
@@ -242,7 +242,7 @@ class CodableFeedStoreTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     
-    private func deleteCache(from sut: CodableFeedStore) -> Error? {
+    private func deleteCache(from sut: FeedStore) -> Error? {
         let exp = expectation(description: "Wait for Delete Completion")
         var receivedError: Error?
         sut.deleteCacheFeed { error in
