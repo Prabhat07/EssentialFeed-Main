@@ -127,19 +127,19 @@ class CodableFeedStoreTests: XCTestCase {
         
         var completionOperationsInorder = [XCTestExpectation]()
         
-        let op1 = expectation(description: "Insert operation 1")
+        let op1 = expectation(description: "Operation 1")
         sut.insert(uniqueImageFeed().local, timeStamp: Date()) { _ in
             completionOperationsInorder.append(op1)
             op1.fulfill()
         }
         
-        let op2 = expectation(description: "Delete operation2")
+        let op2 = expectation(description: "Operation2")
         sut.deleteCacheFeed { _ in
             completionOperationsInorder.append(op2)
             op2.fulfill()
         }
         
-        let op3 = expectation(description: "Insert operation 3")
+        let op3 = expectation(description: "Operation 3")
         sut.insert(uniqueImageFeed().local, timeStamp: Date()) { _ in
             completionOperationsInorder.append(op3)
             op3.fulfill()
