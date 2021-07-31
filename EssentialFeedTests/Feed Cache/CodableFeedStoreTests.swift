@@ -8,34 +8,7 @@
 import XCTest
 import EssentialFeed
 
-protocol FeedStoreSpecs {
-    func test_retrieve_deliverEmptyOnEmptyCache()
-    func test_retrieve_hasNoSideEffectsOnEmptyCache()
-    func test_retrieve_deliversFoundValuesOnNonEmptyCache()
-    func test_retrieve_hasNoEffectOnRetrieveNonEmptyCache()
-
-    func test_insert_overridesPreviouslyInsertedCacheValue()
-
-    func test_delete_hasNoSideEffectOnEmptyCache()
-    func test_delete_deletePreviousInsertedValues()
-}
-
-protocol FailableRetrieveProtocol {
-    func test_retrieve_deliversFailuerOnRetrievalError()
-    func test_retrieve_hasNoSideEffectOnFailuer()
-}
-
-protocol FailableInsertProtocol {
-    func test_insert_deliversErrorOnInsertionError()
-    func test_insert_hasNoSideEffectsOnInsertionError()
-}
-
-protocol FailableDeleteProtocol {
-    func test_delete_deliversErrorOnDeletionError()
-    func test_delete_hasNoSideEffectsOnDeletionError()
-}
-
-class CodableFeedStoreTests: XCTestCase {
+class CodableFeedStoreTests: XCTestCase, FailbleFeedStore {
 
     override func setUp() {
         super.setUp()
@@ -164,6 +137,15 @@ class CodableFeedStoreTests: XCTestCase {
         
         let deletionError = deleteCache(from: sut)
         XCTAssertNil(deletionError, "Delete Cache SuccessFully")
+    }
+    
+    func test_delete_deliversNoErrorOnNonEmptyCache() {
+        let sut = makeSUT()
+        insert((uniqueImageFeed().local, Date()), to: sut)
+        
+        let deletionError = deleteCache(from: sut)
+        
+        XCTAssertNil(deletionError, "Expected non-empty cache deletion to succeed")
     }
     
     func test_delete_deletePreviousInsertedValues() {
