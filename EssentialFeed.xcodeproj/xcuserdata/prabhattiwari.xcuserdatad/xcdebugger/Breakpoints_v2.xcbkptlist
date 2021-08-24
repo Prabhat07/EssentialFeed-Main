@@ -3,4 +3,22 @@
    uuid = "C6E68EAD-619F-440C-B5A7-1C77E87B533D"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E84C53B0-CA38-4DDA-8473-15968A6F0005"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../var/folders/dj/phhqg3_96nbbpcd9m0k3f0b40000gn/T/xcode/scm/EssentialFeed/6eeb18f09906d7b71605ead2fe2d2601e0fcbfa3/EssentialFeed/CoreDataFeedStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "find(in:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
