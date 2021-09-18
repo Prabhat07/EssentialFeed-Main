@@ -185,6 +185,7 @@
 				43429CF426F578700037C86D /* EssentialFeediOS */,
 				43429CFF26F578700037C86D /* EssentialFeediOSTests */,
 				430B2CA325BBB038004B73A6 /* Products */,
+				43429D3626F5D1050037C86D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -268,6 +269,13 @@
 				43429D2E26F5A09A0037C86D /* FeedViewControllerTest.swift */,
 			);
 			path = EssentialFeediOSTests;
+			sourceTree = "<group>";
+		};
+		43429D3626F5D1050037C86D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		4343A2CC26259625008344AD /* EssentialFeedEndToEndTests */ = {
