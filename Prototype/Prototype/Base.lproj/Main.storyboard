@@ -65,7 +65,7 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w67-ju-3a0">
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w67-ju-3a0" userLabel="Image Container">
                                                     <rect key="frame" x="0.0" y="47" width="374" height="374"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ujy-Fs-6GU">
@@ -109,6 +109,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="buo-5i-OJD" id="Kq6-6Y-LJg"/>
+                                    <outlet property="feedImageContainer" destination="w67-ju-3a0" id="gKt-aY-3tb"/>
                                     <outlet property="feedImageView" destination="Ujy-Fs-6GU" id="iJ4-BV-1Ja"/>
                                     <outlet property="locationContainer" destination="SKw-dJ-Kpb" id="7JG-yo-T1k"/>
                                     <outlet property="locationLabel" destination="v50-pf-5nf" id="RJ1-nU-uPC"/>
@@ -121,6 +122,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My Feed" id="Oe5-Mv-Jqv"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="clX-1z-y4z">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refresh" destination="jlv-NH-fqy" eventType="valueChanged" id="Nd4-Eg-oem"/>
+                        </connections>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dg8-dc-cU3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
