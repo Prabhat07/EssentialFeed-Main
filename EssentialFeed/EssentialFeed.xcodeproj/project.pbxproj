@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43063A58271E5093002A0217 /* FeedRereshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43063A57271E5093002A0217 /* FeedRereshViewController.swift */; };
 		430B2CAC25BBB038004B73A6 /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 430B2CA225BBB038004B73A6 /* EssentialFeed.framework */; };
 		430B2CC325BBB0B3004B73A6 /* FeedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430B2CC225BBB0B3004B73A6 /* FeedImage.swift */; };
 		430B2CC925BEC1DB004B73A6 /* FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430B2CC825BEC1DB004B73A6 /* FeedLoader.swift */; };
@@ -108,6 +109,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		43063A57271E5093002A0217 /* FeedRereshViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRereshViewController.swift; sourceTree = "<group>"; };
 		430B2CA225BBB038004B73A6 /* EssentialFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EssentialFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		430B2CA625BBB038004B73A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		430B2CAB25BBB038004B73A6 /* EssentialFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -407,6 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				43BD17702703F44C00859138 /* FeedViewController.swift */,
+				43063A57271E5093002A0217 /* FeedRereshViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -710,6 +713,7 @@
 				43C468832717C5A400D4A80A /* FeedImageDataLoader.swift in Sources */,
 				434F9D32270D2B8100B67E88 /* UIView+Shimmering.swift in Sources */,
 				43BD17712703F44C00859138 /* FeedViewController.swift in Sources */,
+				43063A58271E5093002A0217 /* FeedRereshViewController.swift in Sources */,
 				43BD177927054A3B00859138 /* FeedImageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
