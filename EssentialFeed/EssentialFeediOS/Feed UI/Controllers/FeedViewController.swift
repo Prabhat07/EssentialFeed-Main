@@ -42,7 +42,7 @@ final public class FeedViewController: UITableViewController, UITableViewDataSou
     
     public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         indexPaths.forEach { indexPath in
-             cellController(forRowAt: indexPath).prelaod()
+             cellController(forRowAt: indexPath).preload()
         }
     }
     
