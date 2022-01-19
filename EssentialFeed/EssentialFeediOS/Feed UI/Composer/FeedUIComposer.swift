@@ -121,3 +121,4 @@ private final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, 
         task?.cancel()
     }
 }
+
