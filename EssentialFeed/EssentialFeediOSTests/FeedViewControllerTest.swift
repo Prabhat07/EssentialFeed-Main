@@ -11,14 +11,6 @@ import EssentialFeediOS
 
 final class FeedViewControllerTest: XCTestCase {
     
-    func test_feedView_hasTitle() {
-        let (sut, _) = makeSUT()
-        
-        sut.loadViewIfNeeded()
-        
-        XCTAssertEqual(sut.title, "My Feed")
-    }
-    
     func test_loadsFeedActions_requestFeedFromLoader() {
         let (sut, loader) = makeSUT()
         XCTAssertEqual(loader.loadFeedCallCount, 0, "Expect no loading request before view is loaded")
