@@ -24,6 +24,7 @@ final public class FeedViewController: UITableViewController, UITableViewDataSou
         refreshControl = refreshController?.view
         
         tableView.prefetchDataSource = self
+        title = "My Feed"
         refreshController?.refresh()
     }
     
