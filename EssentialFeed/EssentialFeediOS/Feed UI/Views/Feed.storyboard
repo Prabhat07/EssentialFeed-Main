@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ByQ-U9-xRp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ByQ-U9-xRp">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,19 +16,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="yCB-Pc-oe2">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="16"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="yCB-Pc-oe2" customClass="ErrorView" customModule="EssentialFeediOS" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8W4-lP-Ui2">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="34"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WVy-f1-av8">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="34"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain"/>
+                                    <connections>
+                                        <action selector="hideMessageAnimated" destination="yCB-Pc-oe2" eventType="touchUpInside" id="YNj-cE-GNI"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="1" green="0.41568627450980389" blue="0.41568627450980389" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="WVy-f1-av8" secondAttribute="bottom" id="80a-0U-Co5"/>
+                                <constraint firstItem="WVy-f1-av8" firstAttribute="top" secondItem="yCB-Pc-oe2" secondAttribute="top" id="8sq-jb-bvB"/>
+                                <constraint firstItem="WVy-f1-av8" firstAttribute="leading" secondItem="yCB-Pc-oe2" secondAttribute="leading" id="B4a-H6-y6H"/>
+                                <constraint firstItem="8W4-lP-Ui2" firstAttribute="top" secondItem="yCB-Pc-oe2" secondAttribute="top" id="Ku4-Lm-oXN"/>
+                                <constraint firstAttribute="trailing" secondItem="8W4-lP-Ui2" secondAttribute="trailing" id="Pf0-Df-1vC"/>
+                                <constraint firstItem="8W4-lP-Ui2" firstAttribute="leading" secondItem="yCB-Pc-oe2" secondAttribute="leading" id="Tiw-qO-909"/>
+                                <constraint firstAttribute="bottom" secondItem="8W4-lP-Ui2" secondAttribute="bottom" id="lxw-5y-AZt"/>
+                                <constraint firstAttribute="trailing" secondItem="WVy-f1-av8" secondAttribute="trailing" id="oQd-aO-2hO"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="label" destination="8W4-lP-Ui2" id="5oG-oJ-9gI"/>
+                            </connections>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="hZh-zz-7cX">
-                            <rect key="frame" x="0.0" y="652" width="414" height="16"/>
+                            <rect key="frame" x="0.0" y="681" width="414" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FeedImageCell" rowHeight="580" id="ctQ-MI-H87" customClass="FeedImageCell" customModule="EssentialFeediOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="580"/>
+                                <rect key="frame" x="0.0" y="78.5" width="414" height="580"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ctQ-MI-H87" id="v54-cJ-9g4">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="580"/>
@@ -101,7 +131,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZq-dd-G0l">
-                                                    <rect key="frame" x="0.0" y="431" width="373" height="115"/>
+                                                    <rect key="frame" x="0.0" y="431" width="357.5" height="115"/>
                                                     <string key="text">Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
@@ -144,6 +174,9 @@
                             <action selector="refresh" destination="ByQ-U9-xRp" eventType="valueChanged" id="nOz-6q-7JH"/>
                         </connections>
                     </refreshControl>
+                    <connections>
+                        <outlet property="errorView" destination="yCB-Pc-oe2" id="cZ1-cc-yID"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9SA-fV-CbF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

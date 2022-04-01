@@ -20,6 +20,9 @@
 		4315803926BF7ECF00AA60BA /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BEEEA426173875009CABC6 /* XCTestCase+MemoryLeakTracking.swift */; };
 		4315804926C2040A00AA60BA /* FeedCacheTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C8F69A266476B000762DD5 /* FeedCacheTestHelper.swift */; };
 		4315804E26C2041D00AA60BA /* ShareTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C8F69F2664785D00762DD5 /* ShareTestHelpers.swift */; };
+		431B1A7527F682EA0046BA23 /* FeedErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431B1A7427F682EA0046BA23 /* FeedErrorViewModel.swift */; };
+		431B1A7727F686DF0046BA23 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431B1A7627F686DF0046BA23 /* ErrorView.swift */; };
+		431B1A7A27F68AE40046BA23 /* UIRefreshControl+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431B1A7927F68AE40046BA23 /* UIRefreshControl+Helpers.swift */; };
 		4333ABFD261D5BBD001067EC /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4333ABFC261D5BBD001067EC /* URLSessionHTTPClient.swift */; };
 		43429CFC26F578700037C86D /* EssentialFeediOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43429CF326F578700037C86D /* EssentialFeediOS.framework */; };
 		43429D2F26F5A09A0037C86D /* FeedUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43429D2E26F5A09A0037C86D /* FeedUIIntegrationTests.swift */; };
@@ -140,6 +143,9 @@
 		430B2CD325C316B1004B73A6 /* RemoteFeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoader.swift; sourceTree = "<group>"; };
 		430B2D1425CFF99F004B73A6 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		430B2D1825CFFA33004B73A6 /* FeedItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsMapper.swift; sourceTree = "<group>"; };
+		431B1A7427F682EA0046BA23 /* FeedErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedErrorViewModel.swift; sourceTree = "<group>"; };
+		431B1A7627F686DF0046BA23 /* ErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		431B1A7927F68AE40046BA23 /* UIRefreshControl+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+Helpers.swift"; sourceTree = "<group>"; };
 		4333ABFC261D5BBD001067EC /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 		43429CF326F578700037C86D /* EssentialFeediOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EssentialFeediOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43429CF626F578700037C86D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -268,6 +274,7 @@
 				43B3487F277D42FB008E8A5A /* FeedPresenter.swift */,
 				43B3489527979AD2008E8A5A /* FeedImagePresenter.swift */,
 				43B3489C27979D54008E8A5A /* FeedLoadingViewModel.swift */,
+				431B1A7427F682EA0046BA23 /* FeedErrorViewModel.swift */,
 				43B348A327979D9F008E8A5A /* FeedViewModel.swift */,
 				43BB274127CB197D00959586 /* Feed.strings */,
 			);
@@ -351,6 +358,17 @@
 				43BEEEA026160425009CABC6 /* URLSessionHTTPClientTest.swift */,
 			);
 			path = "Feed API";
+			sourceTree = "<group>";
+		};
+		431B1A7827F68AC70046BA23 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				431B1A7927F68AE40046BA23 /* UIRefreshControl+Helpers.swift */,
+				434F9D31270D2B8100B67E88 /* UIView+Shimmering.swift */,
+				4397E38D27A13C4400C49EB9 /* UITableView+Dequeueing.swift */,
+				4397E39927A1400700C49EB9 /* UIImageView+Animations.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		43429CF426F578700037C86D /* EssentialFeediOS */ = {
@@ -501,12 +519,11 @@
 		43C4688B2717C60F00D4A80A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				431B1A7827F68AC70046BA23 /* Helpers */,
+				431B1A7627F686DF0046BA23 /* ErrorView.swift */,
 				43BD177827054A3B00859138 /* FeedImageCell.swift */,
-				434F9D31270D2B8100B67E88 /* UIView+Shimmering.swift */,
 				43B348CE2798F630008E8A5A /* Feed.storyboard */,
-				4397E38D27A13C4400C49EB9 /* UITableView+Dequeueing.swift */,
 				43B348D52798F658008E8A5A /* Feed.xcassets */,
-				4397E39927A1400700C49EB9 /* UIImageView+Animations.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -806,6 +823,7 @@
 				43B34880277D42FB008E8A5A /* FeedPresenter.swift in Sources */,
 				43C468832717C5A400D4A80A /* FeedImageDataLoader.swift in Sources */,
 				43B348A427979D9F008E8A5A /* FeedViewModel.swift in Sources */,
+				431B1A7A27F68AE40046BA23 /* UIRefreshControl+Helpers.swift in Sources */,
 				4397E38E27A13C4400C49EB9 /* UITableView+Dequeueing.swift in Sources */,
 				434F9D32270D2B8100B67E88 /* UIView+Shimmering.swift in Sources */,
 				43B3489D27979D54008E8A5A /* FeedLoadingViewModel.swift in Sources */,
@@ -818,7 +836,9 @@
 				43BD177927054A3B00859138 /* FeedImageCell.swift in Sources */,
 				43BB277927CE367400959586 /* FeedImageDataLoaderPresentationAdapter.swift in Sources */,
 				43063A8A2730DA94002A0217 /* FeedImageViewModel.swift in Sources */,
+				431B1A7727F686DF0046BA23 /* ErrorView.swift in Sources */,
 				43063A5F271E58AF002A0217 /* FeedImageCellController.swift in Sources */,
+				431B1A7527F682EA0046BA23 /* FeedErrorViewModel.swift in Sources */,
 				43BB278727CE378B00959586 /* FeedViewAdapter.swift in Sources */,
 				43063A6727211745002A0217 /* FeedUIComposer.swift in Sources */,
 			);
@@ -953,6 +973,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1012,6 +1033,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1040,6 +1062,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Service.EssentialFeed;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1066,6 +1089,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Service.EssentialFeed;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
