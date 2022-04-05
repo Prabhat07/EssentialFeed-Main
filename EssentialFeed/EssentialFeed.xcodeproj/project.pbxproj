@@ -24,7 +24,8 @@
 		431B1A7727F686DF0046BA23 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431B1A7627F686DF0046BA23 /* ErrorView.swift */; };
 		431B1A7A27F68AE40046BA23 /* UIRefreshControl+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431B1A7927F68AE40046BA23 /* UIRefreshControl+Helpers.swift */; };
 		431B1A7D27F9A23B0046BA23 /* FeedPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431B1A7C27F9A23B0046BA23 /* FeedPresenterTest.swift */; };
-		431B1A8027FA89800046BA23 /* Feed.strings in Resources */ = {isa = PBXBuildFile; fileRef = 431B1A8227FA89800046BA23 /* Feed.strings */; };
+		431B1A8A27FBC8FD0046BA23 /* FeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431B1A8927FBC8FD0046BA23 /* FeedPresenter.swift */; };
+		431B1A8B27FBCAEE0046BA23 /* Feed.strings in Resources */ = {isa = PBXBuildFile; fileRef = 431B1A8227FA89800046BA23 /* Feed.strings */; };
 		4333ABFD261D5BBD001067EC /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4333ABFC261D5BBD001067EC /* URLSessionHTTPClient.swift */; };
 		43429CFC26F578700037C86D /* EssentialFeediOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43429CF326F578700037C86D /* EssentialFeediOS.framework */; };
 		43429D2F26F5A09A0037C86D /* FeedUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43429D2E26F5A09A0037C86D /* FeedUIIntegrationTests.swift */; };
@@ -152,6 +153,7 @@
 		431B1A8127FA89800046BA23 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Feed.strings; sourceTree = "<group>"; };
 		431B1A8327FA89850046BA23 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Feed.strings; sourceTree = "<group>"; };
 		431B1A8427FA89870046BA23 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Feed.strings"; sourceTree = "<group>"; };
+		431B1A8927FBC8FD0046BA23 /* FeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 		4333ABFC261D5BBD001067EC /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 		43429CF326F578700037C86D /* EssentialFeediOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EssentialFeediOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43429CF626F578700037C86D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				43792DF72657406B00F49E16 /* Feed Cache */,
 				430B2CCD25BEC41B004B73A6 /* FeedFeature */,
 				430B2CD225C31682004B73A6 /* Feed API */,
+				431B1A8827FBC8DC0046BA23 /* Feed Presentation */,
 			);
 			path = EssentialFeed;
 			sourceTree = "<group>";
@@ -382,9 +385,17 @@
 			isa = PBXGroup;
 			children = (
 				431B1A7C27F9A23B0046BA23 /* FeedPresenterTest.swift */,
-				431B1A8227FA89800046BA23 /* Feed.strings */,
 			);
 			path = "Feed Presentation";
+			sourceTree = "<group>";
+		};
+		431B1A8827FBC8DC0046BA23 /* Feed Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				431B1A8927FBC8FD0046BA23 /* FeedPresenter.swift */,
+				431B1A8227FA89800046BA23 /* Feed.strings */,
+			);
+			name = "Feed Presentation";
 			sourceTree = "<group>";
 		};
 		43429CF426F578700037C86D /* EssentialFeediOS */ = {
@@ -746,6 +757,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				431B1A8B27FBCAEE0046BA23 /* Feed.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,7 +765,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				431B1A8027FA89800046BA23 /* Feed.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -807,6 +818,7 @@
 				43792DF92657409C00F49E16 /* LocalFeedLoader.swift in Sources */,
 				430B2D1525CFF99F004B73A6 /* HTTPClient.swift in Sources */,
 				430B2CC325BBB0B3004B73A6 /* FeedImage.swift in Sources */,
+				431B1A8A27FBC8FD0046BA23 /* FeedPresenter.swift in Sources */,
 				4333ABFD261D5BBD001067EC /* URLSessionHTTPClient.swift in Sources */,
 				435E2FB626BE9CAF008C98C0 /* ManagedCache.swift in Sources */,
 				4384111426BB7E990033CEF5 /* CoreDataFeedStore.swift in Sources */,
