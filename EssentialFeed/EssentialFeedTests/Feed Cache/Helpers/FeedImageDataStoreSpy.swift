@@ -8,7 +8,7 @@
 import Foundation
 import EssentialFeed
 
-class StoreSpy: FeedImageDataStore {
+class FeedImageDataStoreSpy: FeedImageDataStore {
     enum Message: Equatable {
         case insert(data: Data, for: URL)
         case retrieve(dataFor: URL)
