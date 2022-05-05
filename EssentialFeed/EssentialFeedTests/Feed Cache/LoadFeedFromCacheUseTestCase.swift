@@ -35,7 +35,7 @@ class LoadFeedFromCacheUseTestCase: XCTestCase {
     func test_laod_noImageFeedReturnOnEmptyCache() {
         let (sut, store) = makeSut()
         expect(sut, completeWith: .success([]), when: {
-            store.completeWithEmptyCache()
+            store.completeRetrievalWithEmptyCache()
         })
     }
     
@@ -85,7 +85,7 @@ class LoadFeedFromCacheUseTestCase: XCTestCase {
         let (sut, store) = makeSut()
         sut.load { _ in }
         
-        store.completeWithEmptyCache()
+        store.completeRetrievalWithEmptyCache()
         
         XCTAssertEqual(store.receivedMessages, [.retriev])
     }
@@ -132,7 +132,7 @@ class LoadFeedFromCacheUseTestCase: XCTestCase {
         sut?.load { receivedMessages.append($0) }
         sut = nil
 
-        store.completeWithEmptyCache()
+        store.completeRetrievalWithEmptyCache()
         XCTAssertTrue(receivedMessages.isEmpty)
     }
     
