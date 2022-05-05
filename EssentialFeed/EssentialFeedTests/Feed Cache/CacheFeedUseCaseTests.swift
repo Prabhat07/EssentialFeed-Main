@@ -31,7 +31,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         let deletionError = anyNSError()
         sut.save(feed.models){ _ in }
         
-        store.completionDeletion(with : deletionError)
+        store.completeDeletion(with : deletionError)
         
         XCTAssertEqual(store.receivedMessages, [.deleteCachedFeed])
     }
@@ -55,7 +55,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         let deletionError = anyNSError()
         
         expect(sut, toCompleteWithError: deletionError, when: {
-            store.completionDeletion(with : deletionError)
+            store.completeDeletion(with : deletionError)
         })
     
     }
@@ -89,7 +89,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         sut?.save(uniqueImageFeed().models) { receivedResult.append($0) }
         
         sut = nil
-        store.completionDeletion(with: anyNSError())
+        store.completeDeletion(with: anyNSError())
         XCTAssertTrue(receivedResult.isEmpty)
     }
     
