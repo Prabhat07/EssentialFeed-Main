@@ -29,7 +29,14 @@ class FeedImageDataLoaderWithFallbackComposite: FeedImageDataLoader {
     func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> ()) -> FeedImageDataLoaderTask {
         let task = TaskWrapper()
         
-        _ = primary.loadImageData(from: url) { _  in }
+        _ = primary.loadImageData(from: url) { [weak self] result in
+            switch result {
+            case .success:
+                break
+            case .failure:
+                _ = self?.fallback.loadImageData(from: url) { _ in }
+            }
+        }
         
         return task
     }
@@ -52,6 +59,18 @@ class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
         XCTAssertTrue(fallbackLoader.loadedURLs.isEmpty, "Expected no loaded URLs in the fallback loader")
     }
     
+    func test_loadImageData_loadsFromFallbackLoaderOnPrimaryLoaderFailure() {
+        let url = anyUrl()
+        let (sut, primaryLoader, fallbackLoader) = makeSUT()
+        
+        _ = sut.loadImageData(from: url) { _ in }
+        
+        primaryLoader.complete(with: anyNSError())
+        
+        XCTAssertEqual(primaryLoader.loadedURLs, [url], "Expected to load URL from primary loader")
+        XCTAssertEqual(fallbackLoader.loadedURLs, [url], "Expected to load URL from fallback loader")
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedImageDataLoaderWithFallbackComposite, primaryLoader: LoaderSpy, fallbackLoader: LoaderSpy)  {
@@ -70,6 +89,10 @@ class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
         addTeardownBlock { [weak instance] in
             XCTAssertNil(instance, "Object should have been deallocated, Potential memory leak", file: file, line: line)
         }
+    }
+    
+    private func anyNSError() -> NSError {
+        return NSError(domain: "Any error", code: 0)
     }
     
     private func anyUrl() -> URL {
@@ -91,6 +114,10 @@ class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
         func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> ()) -> FeedImageDataLoaderTask {
             messages.append((url, completion))
             return Task()
+        }
+        
+        func complete(with error: NSError, at index: Int = 0) {
+            messages[index].completion(.failure(error))
         }
         
     }
