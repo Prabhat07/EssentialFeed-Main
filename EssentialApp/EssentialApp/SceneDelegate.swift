@@ -14,6 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    let localStoreURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("feed-store.sqlite")
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -28,28 +29,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let remoteFeedLoader = RemoteFeedLoader(url: url, client: remoteClient)
         let remoteFeedImageLoader = RemoteFeedImageDataLoader(client: remoteClient)
         
-        let localStoreURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("feed-store.sqlite")
-        #if DEBUG
-        if CommandLine.arguments.contains("-reset") {
-            try! FileManager.default.removeItem(at: localStoreURL)
-        }
-        #endif
-        
         let localStore = try! CoreDataFeedStore(storeURL: localStoreURL)
         let localFeedLoader = LocalFeedLoader(store: localStore, currentDate: Date.init)
         let localFeedImageLoader = LocalFeedImageDataLoader(store: localStore)
         
         window?.rootViewController = FeedUIComposer.feedComposedWith(feedLoader: FeedLoaderWithFallbackComposite(primary: FeedLoaderCacheDecorator(decoratee: remoteFeedLoader, cache: localFeedLoader), fallback: localFeedLoader), imageLoader: FeedImageDataLoaderWithFallbackComposite(primary: localFeedImageLoader, fallback: FeedImageDataLoaderCacheDecorator(decoratee: remoteFeedImageLoader, cache: localFeedImageLoader)))
         
-        
     }
     
     func makeRemoteClient() -> HTTPClient {
-        #if DEBUG
-        if UserDefaults.standard.string(forKey: "connectivity") == "offline" {
-            return AlwaysFailingClient()
-        }
-        #endif
         return URLSessionHTTPClient(URLSession(configuration: .ephemeral))
     }
 
@@ -84,15 +72,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
-#if DEBUG
-class AlwaysFailingClient: HTTPClient {
-    private class Task: HTTPClientTask {
-        func cancel () {}
-    }
-    
-    func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) -> HTTPClientTask {
-        completion(.failure(NSError(domain: "Any error", code: 0)))
-        return Task()
-    }
-}
-#endif
