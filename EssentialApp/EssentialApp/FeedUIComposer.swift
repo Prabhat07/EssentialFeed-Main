@@ -7,6 +7,7 @@
 
 import UIKit
 import EssentialFeed
+import EssentialFeediOS
 
 public final class FeedUIComposer {
     private init() {}
@@ -28,7 +29,7 @@ public final class FeedUIComposer {
     }
     
     private static func makeFeedViewController(delegate: FeedViewControllerDelegate, title: String) -> FeedViewController  {
-        let bundle = Bundle(for: FeedViewAdapter.self)
+        let bundle = Bundle(for: FeedViewController.self)
         let storyboard = UIStoryboard(name: "Feed", bundle: bundle)
         let feedController = storyboard.instantiateInitialViewController() as! FeedViewController
         feedController.delegate = delegate
