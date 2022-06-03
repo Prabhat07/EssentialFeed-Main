@@ -33,6 +33,7 @@
 		43B3C6F22831F137001CDEF8 /* FeedImageDataLoaderCacheDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B3C6F12831F137001CDEF8 /* FeedImageDataLoaderCacheDecorator.swift */; };
 		43B3C6FA283F269D001CDEF8 /* EssentialAppUIAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B3C6F9283F269D001CDEF8 /* EssentialAppUIAcceptanceTests.swift */; };
 		43B3C7032845AD39001CDEF8 /* DebuggingSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B3C7022845AD38001CDEF8 /* DebuggingSceneDelegate.swift */; };
+		43B3C7052849A182001CDEF8 /* SceneDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B3C7042849A182001CDEF8 /* SceneDelegateTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		43B3C6F7283F269D001CDEF8 /* EssentialAppUIAcceptanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialAppUIAcceptanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		43B3C6F9283F269D001CDEF8 /* EssentialAppUIAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialAppUIAcceptanceTests.swift; sourceTree = "<group>"; };
 		43B3C7022845AD38001CDEF8 /* DebuggingSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebuggingSceneDelegate.swift; sourceTree = "<group>"; };
+		43B3C7042849A182001CDEF8 /* SceneDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegateTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				43B3C6D8282F4975001CDEF8 /* Helpers */,
+				43B3C7042849A182001CDEF8 /* SceneDelegateTests.swift */,
 				43B3C6D0282E02EF001CDEF8 /* FeedLoaderWithFallbackCompositeTests.swift */,
 				43B3C6DF28311779001CDEF8 /* FeedLoaderCacheDecoratorTests.swift */,
 				43B3C6D4282E5A3F001CDEF8 /* FeedImageDataLoaderWithFallbackCompositeTests.swift */,
@@ -359,6 +362,7 @@
 				43B3C6EA2831DA1F001CDEF8 /* FeedImageDataLoaderCacheDecoratorTests.swift in Sources */,
 				43B3C6E028311779001CDEF8 /* FeedLoaderCacheDecoratorTests.swift in Sources */,
 				43B3C6EE2831E70F001CDEF8 /* XCTestCase+FeedImageDataLoader.swift in Sources */,
+				43B3C7052849A182001CDEF8 /* SceneDelegateTests.swift in Sources */,
 				43B3C6D5282E5A3F001CDEF8 /* FeedImageDataLoaderWithFallbackCompositeTests.swift in Sources */,
 				43B3C6EC2831E657001CDEF8 /* FeedImageDataLoaderSpy.swift in Sources */,
 				43B3C6E428311DC2001CDEF8 /* XCTestcase+FeedLoader.swift in Sources */,
