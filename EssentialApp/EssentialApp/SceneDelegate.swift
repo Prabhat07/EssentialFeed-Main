@@ -13,15 +13,13 @@ import EssentialFeediOS
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-    let localStoreURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("feed-store.sqlite")
     
     private lazy var htttpClient: HTTPClient = {
         URLSessionHTTPClient(URLSession(configuration: .ephemeral))
     }()
     
     private lazy var store: FeedStore & FeedImageDataStore = {
-        try! CoreDataFeedStore(storeURL: localStoreURL)
+        try! CoreDataFeedStore(storeURL: NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("feed-store.sqlite"))
     }()
     
     
@@ -42,20 +40,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func configureWindow() {
         let url = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed/v1/feed")!
         
-        let remoteClient = makeRemoteClient()
         
-        let remoteFeedLoader = RemoteFeedLoader(url: url, client: remoteClient)
-        let remoteFeedImageLoader = RemoteFeedImageDataLoader(client: remoteClient)
+        let remoteFeedLoader = RemoteFeedLoader(url: url, client: htttpClient)
+        let remoteFeedImageLoader = RemoteFeedImageDataLoader(client: htttpClient)
         
-        let localStore = store
-        let localFeedLoader = LocalFeedLoader(store: localStore, currentDate: Date.init)
-        let localFeedImageLoader = LocalFeedImageDataLoader(store: localStore)
+        let localFeedLoader = LocalFeedLoader(store: store, currentDate: Date.init)
+        let localFeedImageLoader = LocalFeedImageDataLoader(store: store)
         
         window?.rootViewController = UINavigationController(rootViewController:  FeedUIComposer.feedComposedWith(feedLoader: FeedLoaderWithFallbackComposite(primary: FeedLoaderCacheDecorator(decoratee: remoteFeedLoader, cache: localFeedLoader), fallback: localFeedLoader), imageLoader: FeedImageDataLoaderWithFallbackComposite(primary: localFeedImageLoader, fallback: FeedImageDataLoaderCacheDecorator(decoratee: remoteFeedImageLoader, cache: localFeedImageLoader))))
-    }
-    
-    func makeRemoteClient() -> HTTPClient {
-        return htttpClient
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
