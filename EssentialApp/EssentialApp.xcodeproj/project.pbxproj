@@ -50,6 +50,7 @@
 		43B3C7312849AB11001CDEF8 /* FeedViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B3C7302849AB11001CDEF8 /* FeedViewController+TestHelpers.swift */; };
 		43B3C733284EE918001CDEF8 /* FeedAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B3C732284EE918001CDEF8 /* FeedAcceptanceTests.swift */; };
 		43E970E62850272800FE5AE3 /* HTTPClientStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E970E52850272800FE5AE3 /* HTTPClientStub.swift */; };
+		43E970E82850280900FE5AE3 /* InMemoryFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E970E72850280900FE5AE3 /* InMemoryFeedStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,7 @@
 		43B3C7302849AB11001CDEF8 /* FeedViewController+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedViewController+TestHelpers.swift"; sourceTree = "<group>"; };
 		43B3C732284EE918001CDEF8 /* FeedAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAcceptanceTests.swift; sourceTree = "<group>"; };
 		43E970E52850272800FE5AE3 /* HTTPClientStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientStub.swift; sourceTree = "<group>"; };
+		43E970E72850280900FE5AE3 /* InMemoryFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryFeedStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 				43B3C72E2849A9D5001CDEF8 /* UIControl+TestHelpers.swift */,
 				43B3C7302849AB11001CDEF8 /* FeedViewController+TestHelpers.swift */,
 				43E970E52850272800FE5AE3 /* HTTPClientStub.swift */,
+				43E970E72850280900FE5AE3 /* InMemoryFeedStore.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				43B3C7052849A182001CDEF8 /* SceneDelegateTests.swift in Sources */,
 				43B3C7232849A708001CDEF8 /* FeedImageCell+TestHelpers.swift in Sources */,
 				43B3C71F2849A645001CDEF8 /* FeedUIIntegrationTests+Localization.swift in Sources */,
+				43E970E82850280900FE5AE3 /* InMemoryFeedStore.swift in Sources */,
 				43B3C7272849A838001CDEF8 /* FeedUIIntegrationTests+LoaderSpy.swift in Sources */,
 				43B3C6D5282E5A3F001CDEF8 /* FeedImageDataLoaderWithFallbackCompositeTests.swift in Sources */,
 				43B3C6EC2831E657001CDEF8 /* FeedImageDataLoaderSpy.swift in Sources */,
