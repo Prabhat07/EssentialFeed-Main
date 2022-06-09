@@ -20,8 +20,8 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8W4-lP-Ui2">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="34"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" showsExpansionTextWhenTruncated="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8W4-lP-Ui2">
+                                    <rect key="frame" x="8" y="8" width="398" height="18"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -29,7 +29,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WVy-f1-av8">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="34"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain"/>
+                                    <buttonConfiguration key="configuration" style="plain" title=" "/>
                                     <connections>
                                         <action selector="hideMessageAnimated" destination="yCB-Pc-oe2" eventType="touchUpInside" id="YNj-cE-GNI"/>
                                     </connections>
@@ -40,10 +40,10 @@
                                 <constraint firstAttribute="bottom" secondItem="WVy-f1-av8" secondAttribute="bottom" id="80a-0U-Co5"/>
                                 <constraint firstItem="WVy-f1-av8" firstAttribute="top" secondItem="yCB-Pc-oe2" secondAttribute="top" id="8sq-jb-bvB"/>
                                 <constraint firstItem="WVy-f1-av8" firstAttribute="leading" secondItem="yCB-Pc-oe2" secondAttribute="leading" id="B4a-H6-y6H"/>
-                                <constraint firstItem="8W4-lP-Ui2" firstAttribute="top" secondItem="yCB-Pc-oe2" secondAttribute="top" id="Ku4-Lm-oXN"/>
-                                <constraint firstAttribute="trailing" secondItem="8W4-lP-Ui2" secondAttribute="trailing" id="Pf0-Df-1vC"/>
-                                <constraint firstItem="8W4-lP-Ui2" firstAttribute="leading" secondItem="yCB-Pc-oe2" secondAttribute="leading" id="Tiw-qO-909"/>
-                                <constraint firstAttribute="bottom" secondItem="8W4-lP-Ui2" secondAttribute="bottom" id="lxw-5y-AZt"/>
+                                <constraint firstItem="8W4-lP-Ui2" firstAttribute="top" secondItem="yCB-Pc-oe2" secondAttribute="top" constant="8" id="Ku4-Lm-oXN"/>
+                                <constraint firstAttribute="trailing" secondItem="8W4-lP-Ui2" secondAttribute="trailing" constant="8" id="Pf0-Df-1vC"/>
+                                <constraint firstItem="8W4-lP-Ui2" firstAttribute="leading" secondItem="yCB-Pc-oe2" secondAttribute="leading" constant="8" id="Tiw-qO-909"/>
+                                <constraint firstAttribute="bottom" secondItem="8W4-lP-Ui2" secondAttribute="bottom" constant="8" id="lxw-5y-AZt"/>
                                 <constraint firstAttribute="trailing" secondItem="WVy-f1-av8" secondAttribute="trailing" id="oQd-aO-2hO"/>
                             </constraints>
                             <connections>

@@ -86,6 +86,7 @@
 		43C8F6A5266715C800762DD5 /* FeedCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C8F6A4266715C800762DD5 /* FeedCachePolicy.swift */; };
 		43E970EA2850363300FE5AE3 /* FeedSanpshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E970E92850363300FE5AE3 /* FeedSanpshotTests.swift */; };
 		43EC03AF285177E3008F6608 /* UIImage+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EC03AE285177E3008F6608 /* UIImage+TestHelpers.swift */; };
+		43EC03B4285185FE008F6608 /* UITableView+HeaderSizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EC03B3285185FE008F6608 /* UITableView+HeaderSizing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -224,6 +225,7 @@
 		43C8F6A4266715C800762DD5 /* FeedCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCachePolicy.swift; sourceTree = "<group>"; };
 		43E970E92850363300FE5AE3 /* FeedSanpshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSanpshotTests.swift; sourceTree = "<group>"; };
 		43EC03AE285177E3008F6608 /* UIImage+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+TestHelpers.swift"; sourceTree = "<group>"; };
+		43EC03B3285185FE008F6608 /* UITableView+HeaderSizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+HeaderSizing.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -371,6 +373,7 @@
 				434F9D31270D2B8100B67E88 /* UIView+Shimmering.swift */,
 				4397E38D27A13C4400C49EB9 /* UITableView+Dequeueing.swift */,
 				4397E39927A1400700C49EB9 /* UIImageView+Animations.swift */,
+				43EC03B3285185FE008F6608 /* UITableView+HeaderSizing.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -871,6 +874,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43EC03B4285185FE008F6608 /* UITableView+HeaderSizing.swift in Sources */,
 				431B1A7A27F68AE40046BA23 /* UIRefreshControl+Helpers.swift in Sources */,
 				4397E38E27A13C4400C49EB9 /* UITableView+Dequeueing.swift in Sources */,
 				434F9D32270D2B8100B67E88 /* UIView+Shimmering.swift in Sources */,
