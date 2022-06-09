@@ -85,6 +85,7 @@
 		43C8F6A02664785D00762DD5 /* ShareTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C8F69F2664785D00762DD5 /* ShareTestHelpers.swift */; };
 		43C8F6A5266715C800762DD5 /* FeedCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C8F6A4266715C800762DD5 /* FeedCachePolicy.swift */; };
 		43E970EA2850363300FE5AE3 /* FeedSanpshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E970E92850363300FE5AE3 /* FeedSanpshotTests.swift */; };
+		43EC03AF285177E3008F6608 /* UIImage+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EC03AE285177E3008F6608 /* UIImage+TestHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -222,6 +223,7 @@
 		43C8F69F2664785D00762DD5 /* ShareTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareTestHelpers.swift; sourceTree = "<group>"; };
 		43C8F6A4266715C800762DD5 /* FeedCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCachePolicy.swift; sourceTree = "<group>"; };
 		43E970E92850363300FE5AE3 /* FeedSanpshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSanpshotTests.swift; sourceTree = "<group>"; };
+		43EC03AE285177E3008F6608 /* UIImage+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+TestHelpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -410,6 +412,7 @@
 			isa = PBXGroup;
 			children = (
 				43429D0226F578700037C86D /* Info.plist */,
+				43EC03B02851781C008F6608 /* Helpers */,
 				43E970E92850363300FE5AE3 /* FeedSanpshotTests.swift */,
 			);
 			path = EssentialFeediOSTests;
@@ -548,6 +551,14 @@
 				43C8F678265C8A3300762DD5 /* FeedStoreSpy.swift */,
 				43C8F69A266476B000762DD5 /* FeedCacheTestHelper.swift */,
 				4306AF1D2821292F00985AF5 /* FeedImageDataStoreSpy.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		43EC03B02851781C008F6608 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				43EC03AE285177E3008F6608 /* UIImage+TestHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -877,6 +888,7 @@
 			files = (
 				43BD176926FEBE5400859138 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				43E970EA2850363300FE5AE3 /* FeedSanpshotTests.swift in Sources */,
+				43EC03AF285177E3008F6608 /* UIImage+TestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

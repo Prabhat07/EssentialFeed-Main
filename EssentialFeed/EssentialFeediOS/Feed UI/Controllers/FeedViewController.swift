@@ -32,7 +32,7 @@ final public class FeedViewController: UITableViewController, UITableViewDataSou
         delegate?.didRequestFeedRefresh()
     }
     
-    public func dispaly(_ cellControllers: [FeedImageCellController]) {
+    public func display(_ cellControllers: [FeedImageCellController]) {
         tableModel = cellControllers
     }
     
