@@ -51,6 +51,7 @@
 		43E970E62850272800FE5AE3 /* HTTPClientStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E970E52850272800FE5AE3 /* HTTPClientStub.swift */; };
 		43E970E82850280900FE5AE3 /* InMemoryFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E970E72850280900FE5AE3 /* InMemoryFeedStore.swift */; };
 		43EC03B22851834E008F6608 /* UIImage+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EC03B12851834E008F6608 /* UIImage+TestHelpers.swift */; };
+		43EC03B62852DF29008F6608 /* UIView+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EC03B52852DF29008F6608 /* UIView+TestHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,7 @@
 		43E970E52850272800FE5AE3 /* HTTPClientStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientStub.swift; sourceTree = "<group>"; };
 		43E970E72850280900FE5AE3 /* InMemoryFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryFeedStore.swift; sourceTree = "<group>"; };
 		43EC03B12851834E008F6608 /* UIImage+TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+TestHelpers.swift"; path = "../../../EssentialFeed/EssentialFeediOSTests/Helpers/UIImage+TestHelpers.swift"; sourceTree = "<group>"; };
+		43EC03B52852DF29008F6608 /* UIView+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+TestHelpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +237,7 @@
 				43B3C7302849AB11001CDEF8 /* FeedViewController+TestHelpers.swift */,
 				43E970E52850272800FE5AE3 /* HTTPClientStub.swift */,
 				43E970E72850280900FE5AE3 /* InMemoryFeedStore.swift */,
+				43EC03B52852DF29008F6608 /* UIView+TestHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				43E970E62850272800FE5AE3 /* HTTPClientStub.swift in Sources */,
 				43B3C6D1282E02EF001CDEF8 /* FeedLoaderWithFallbackCompositeTests.swift in Sources */,
 				43B3C72B2849A956001CDEF8 /* UIRefreshControl+TestHelpers.swift in Sources */,
+				43EC03B62852DF29008F6608 /* UIView+TestHelpers.swift in Sources */,
 				43B3C6E228311973001CDEF8 /* FeedLoaderStub.swift in Sources */,
 				43B3C733284EE918001CDEF8 /* FeedAcceptanceTests.swift in Sources */,
 				43B3C7212849A667001CDEF8 /* FeedUIIntegrationTests.swift in Sources */,
