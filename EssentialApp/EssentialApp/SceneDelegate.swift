@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import Combine
 import EssentialFeed
 import EssentialFeediOS
 
@@ -45,20 +46,39 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func configureWindow() {
-        let url = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed/v1/feed")!
-        
-        
-        let remoteFeedLoader = RemoteFeedLoader(url: url, client: htttpClient)
         let remoteFeedImageLoader = RemoteFeedImageDataLoader(client: htttpClient)
         
         let localFeedImageLoader = LocalFeedImageDataLoader(store: store)
         
-        window?.rootViewController = UINavigationController(rootViewController:  FeedUIComposer.feedComposedWith(feedLoader: FeedLoaderWithFallbackComposite(primary: FeedLoaderCacheDecorator(decoratee: remoteFeedLoader, cache: localFeedLoader), fallback: localFeedLoader), imageLoader: FeedImageDataLoaderWithFallbackComposite(primary: localFeedImageLoader, fallback: FeedImageDataLoaderCacheDecorator(decoratee: remoteFeedImageLoader, cache: localFeedImageLoader))))
+        window?.rootViewController = UINavigationController(rootViewController:  FeedUIComposer.feedComposedWith(feedLoader: makeRemoteFeedLoaderWithFallback, imageLoader: makeLocalImageLoaderWithRemoteFallback))
         
         window?.makeKeyAndVisible()
 
     }
 
+    func makeRemoteFeedLoaderWithFallback() -> FeedLoader.Publisher {
+        let url = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed/v1/feed")!
+        
+        let remoteFeedLoader = RemoteFeedLoader(url: url, client: htttpClient)
+        
+        return remoteFeedLoader
+            .loadPublisher()
+            .caching(with: localFeedLoader)
+            .fallback(to: localFeedLoader.loadPublisher)
+    }
+    
+    func makeLocalImageLoaderWithRemoteFallback(url: URL) -> FeedImageDataLoader.Publisher {
+        let remoteFeedImageLoader = RemoteFeedImageDataLoader(client: htttpClient)
+        let localFeedImageLoader = LocalFeedImageDataLoader(store: store)
+        
+        return localFeedImageLoader
+            .loadImageDataPublisher(from: url)
+            .fallback(to:{
+                remoteFeedImageLoader.loadImageDataPublisher(from: url)
+                    .caching(to: localFeedImageLoader, using: url)
+            })
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
@@ -88,6 +108,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
 }
-
