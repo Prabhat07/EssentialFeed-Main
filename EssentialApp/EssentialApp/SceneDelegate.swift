@@ -32,6 +32,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.htttpClient = httpClient
         self.store = store
     }
+    
+    let url = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed/v1/feed")!
+    
+    
+    private lazy var remoteFeedLoader = RemoteFeedLoader(url: url, client: htttpClient)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -46,10 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func configureWindow() {
-        let remoteFeedImageLoader = RemoteFeedImageDataLoader(client: htttpClient)
-        
-        let localFeedImageLoader = LocalFeedImageDataLoader(store: store)
-        
+
         window?.rootViewController = UINavigationController(rootViewController:  FeedUIComposer.feedComposedWith(feedLoader: makeRemoteFeedLoaderWithFallback, imageLoader: makeLocalImageLoaderWithRemoteFallback))
         
         window?.makeKeyAndVisible()
@@ -57,10 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func makeRemoteFeedLoaderWithFallback() -> FeedLoader.Publisher {
-        let url = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed/v1/feed")!
-        
-        let remoteFeedLoader = RemoteFeedLoader(url: url, client: htttpClient)
-        
+                
         return remoteFeedLoader
             .loadPublisher()
             .caching(with: localFeedLoader)
