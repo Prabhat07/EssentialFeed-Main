@@ -82,7 +82,7 @@ extension Publisher {
 extension DispatchQueue {
     
     static var immediateWhenOnMainQueueSheduler: ImmediateWhenOnMainQueueSheduler {
-        return ImmediateWhenOnMainQueueSheduler()
+        return ImmediateWhenOnMainQueueSheduler.shared
     }
     
     struct ImmediateWhenOnMainQueueSheduler: Scheduler {
@@ -97,8 +97,21 @@ extension DispatchQueue {
             DispatchQueue.main.minimumTolerance
         }
         
+        static let shared = Self()
+        
+        private static let key = DispatchSpecificKey<UInt8>()
+        private static let value = UInt8.max
+        
+        private init() {
+            DispatchQueue.main.setSpecific(key: Self.key, value: Self.value)
+        }
+        
+        private func isMainQueue() -> Bool {
+            DispatchQueue.getSpecific(key: Self.key) == Self.value
+        }
+        
         func schedule(options: DispatchQueue.SchedulerOptions?, _ action: @escaping () -> Void) {
-            guard Thread.isMainThread else {
+            guard isMainQueue() else {
                 return  DispatchQueue.main.schedule(options: options, action)
             }
             action()
