@@ -45,40 +45,44 @@ class LoadImageCommentsFromRemoteUseCaseTest: XCTestCase {
         })
     }
     
-    func test_load_deliversErrorNon200HTTPResponse() {
+    func test_load_deliversErrorNon2xxHTTPResponse() {
         let url = URL(string: "https://a-test.com")!
         let (sut, client) = makeSUT(url: url)
         
-        let samples = [199, 201, 300, 400,  500, 404]
+        let samples = [199, 150, 300, 400,  500]
         let data = makeJSONData([])
         samples.enumerated().forEach { index, code in
             expect(sut, with: failuer(.invalidData), when: {
-                client.complete(withStatusCode: 400, data: data, at: index)
+                client.complete(withStatusCode: code, data: data, at: index)
             })
         }
     }
     
-    func test_load_deliversErrorWith200ResponseWithInvalidJson() {
+    func test_load_deliversErrorWith2xxResponseWithInvalidJson() {
         let url = URL(string: "https://a-test.com")!
         let (sut, client) = makeSUT(url: url)
-        
-        expect(sut, with: failuer(.invalidData), when: {
-            let data = "Invalid Json".data(using: .utf8)
-            client.complete(withStatusCode: 400, data: data!)
-        })
-    }
-    
-    func test_load_deliversErrorWith200ResponseWithInvalidJsonlist() {
-        let url = URL(string: "https://a-test.com")!
-        let (sut, client) = makeSUT(url: url)
-        
-        expect(sut, with: .success([])) {
-            let emptyListValidJson = makeJSONData([])
-            client.complete(withStatusCode: 200, data: emptyListValidJson)
+        let samples = [200, 201, 250, 280,  299]
+        samples.enumerated().forEach { index, code in
+            expect(sut, with: failuer(.invalidData), when: {
+                let data = "Invalid Json".data(using: .utf8)
+                client.complete(withStatusCode: code, data: data!, at: index)
+            })
         }
     }
     
-    func test_load_delivers200ResponseWithJsonData() {
+    func test_load_deliversErrorWith2xxResponseWithEmptyJsonlist() {
+        let url = URL(string: "https://a-test.com")!
+        let (sut, client) = makeSUT(url: url)
+        let samples = [200, 201, 250, 280,  299]
+        samples.enumerated().forEach { index, code in
+            expect(sut, with: .success([])) {
+                let emptyListValidJson = makeJSONData([])
+                client.complete(withStatusCode: code, data: emptyListValidJson, at: index)
+            }
+        }
+    }
+    
+    func test_load_delivers2xxResponseWithJsonData() {
         
         let (sut, client) = makeSUT()
         
@@ -91,10 +95,13 @@ class LoadImageCommentsFromRemoteUseCaseTest: XCTestCase {
         
         let items = [item1.model, item2.model]
          
-        expect(sut, with: .success(items), when: {
-            let json = makeJSONData([item1.json, item2.json])
-            client.complete(withStatusCode: 200, data: json)
-        })
+        let samples = [200, 201, 250, 280,  299]
+        samples.enumerated().forEach { index, code in
+            expect(sut, with: .success(items), when: {
+                let json = makeJSONData([item1.json, item2.json])
+                client.complete(withStatusCode: code, data: json, at: index)
+            })
+        }
         
     }
     
