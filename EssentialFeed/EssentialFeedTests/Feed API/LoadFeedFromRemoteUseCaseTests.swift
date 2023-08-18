@@ -53,7 +53,7 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
         let data = makeJSONData([])
         samples.enumerated().forEach { index, code in
             expect(sut, with: failuer(.invalidData), when: {
-                client.complete(withStatusCode: 400, data: data, at: index)
+                client.complete(withStatusCode: code, data: data, at: index)
             })
         }
     }
@@ -64,11 +64,11 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
         
         expect(sut, with: failuer(.invalidData), when: {
             let data = "Invalid Json".data(using: .utf8)
-            client.complete(withStatusCode: 400, data: data!)
+            client.complete(withStatusCode: 200, data: data!)
         })
     }
     
-    func test_load_deliversErrorWith200ResponseWithInvalidJsonlist() {
+    func test_load_deliversErrorWith200ResponseWithEmptyJsonlist() {
         let url = URL(string: "https://a-test.com")!
         let (sut, client) = makeSUT(url: url)
         
