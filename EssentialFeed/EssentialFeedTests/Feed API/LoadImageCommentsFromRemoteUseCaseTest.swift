@@ -83,18 +83,25 @@ class LoadImageCommentsFromRemoteUseCaseTest: XCTestCase {
     }
     
     func test_load_delivers2xxResponseWithJsonData() {
-        
+
         let (sut, client) = makeSUT()
-        
-        let item1 = makeItem(id: UUID(), imageUrl: URL(string: "http://a-url.com")!)
-        
-        let item2 = makeItem(id: UUID(),
-                             description: "A description",
-                             location: "usa",
-                             imageUrl: URL(string: "https://another-url.com")!)
-        
+
+        let item1 = makeItem(
+            id: UUID(),
+            message: "a message",
+            createdAt: (Date(timeIntervalSince1970: 1598627222), "2020-08-28T15:07:02+00:00"),
+            username: "a user"
+        )
+
+        let item2 = makeItem(
+            id: UUID(),
+            message: "another message",
+            createdAt: (Date(timeIntervalSince1970: 1577881882), "2020-01-01T12:31:22+00:00"),
+            username: "another user"
+        )
+
         let items = [item1.model, item2.model]
-         
+
         let samples = [200, 201, 250, 280,  299]
         samples.enumerated().forEach { index, code in
             expect(sut, with: .success(items), when: {
@@ -102,7 +109,7 @@ class LoadImageCommentsFromRemoteUseCaseTest: XCTestCase {
                 client.complete(withStatusCode: code, data: json, at: index)
             })
         }
-        
+
     }
     
     func test_load_doNotDeliversResultWhenSUTHasBeenDeallocated() {
@@ -153,16 +160,16 @@ class LoadImageCommentsFromRemoteUseCaseTest: XCTestCase {
         return .failure(error)
     }
     
-    private func makeItem(id: UUID, description: String? = nil, location: String? = nil, imageUrl: URL) -> (model: FeedImage, json: [String: Any]) {
+    private func makeItem(id: UUID, message: String, createdAt: (date: Date, iso8601String: String), username: String) -> (model: ImageComment, json: [String: Any]) {
         
-        let feedItem = FeedImage(id: id, description: description, location: location, url: imageUrl)
+        let feedItem = ImageComment(id: id, message: message, createdAt: createdAt.date, username: username)
         
-        let json = [
+        let json: [String: Any] = [
             "id": feedItem.id.uuidString,
-            "description": feedItem.description,
-            "location": feedItem.location,
-            "image": feedItem.url.absoluteString
-        ].compactMapValues { $0 }
+            "message": feedItem.message,
+            "created_at": createdAt.iso8601String,
+            "author": ["username" : username]
+        ]
      return (feedItem, json)
     }
     
