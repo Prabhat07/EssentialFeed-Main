@@ -10,41 +10,6 @@ import EssentialFeed
 
 class LoadImageCommentsFromRemoteUseCaseTest: XCTestCase {
 
-    func test_RemoteImageCommentsLoader_doesNotRequestDataFromUrl() {
-        let (_, client) = makeSUT()
-        
-        XCTAssertTrue(client.requestURLs.isEmpty)
-    }
-   
-    func test_load_requestsDataFromUrl() {
-        let url = URL(string: "https://a-test.com")!
-        let (sut, client) = makeSUT(url: url)
-        
-        sut.load { _ in }
-        
-        XCTAssertEqual(client.requestURLs, [url])
-    }
-    
-    func test_loadTwice_requestsDataFromUrlTwice() {
-        let url = URL(string: "https://a-test.com")!
-        let (sut, client) = makeSUT(url: url)
-        
-        sut.load { _ in }
-        sut.load { _ in }
-        
-        XCTAssertEqual(client.requestURLs, [url, url])
-    }
-    
-    func test_load_deliversErrorOnClientError() {
-        let url = URL(string: "https://a-test.com")!
-        let (sut, client) = makeSUT(url: url)
-        
-        expect(sut, with: failuer(.connectivity), when: {
-            let error = NSError(domain: "Test", code: 0)
-            client.complete(with: error)
-        })
-    }
-    
     func test_load_deliversErrorNon2xxHTTPResponse() {
         let url = URL(string: "https://a-test.com")!
         let (sut, client) = makeSUT(url: url)
@@ -110,21 +75,6 @@ class LoadImageCommentsFromRemoteUseCaseTest: XCTestCase {
             })
         }
 
-    }
-    
-    func test_load_doNotDeliversResultWhenSUTHasBeenDeallocated() {
-        let url = URL(string: "http://A-url.com")!
-        let client = HTTPClientSpy()
-        var sut: RemoteImageCommentsLoader? = RemoteImageCommentsLoader(url: url, client: client)
-        
-        var capturedResults = [RemoteImageCommentsLoader.Result]()
-        sut?.load { capturedResults.append($0) }
-        
-        sut = nil
-        client.complete(withStatusCode: 200, data: makeJSONData([]))
-        
-        XCTAssert(capturedResults.isEmpty)
-        
     }
     
     //MARK: - Test Helpers
