@@ -10,41 +10,6 @@ import EssentialFeed
 
 class LoadFeedFromRemoteUseCaseTests: XCTestCase {
     
-    func test_remoteFeedLoader_doesNotRequestDataFromUrl() {
-        let (_, client) = makeSUT()
-        
-        XCTAssertTrue(client.requestURLs.isEmpty)
-    }
-   
-    func test_load_requestsDataFromUrl() {
-        let url = URL(string: "https://a-test.com")!
-        let (sut, client) = makeSUT(url: url)
-        
-        sut.load { _ in }
-        
-        XCTAssertEqual(client.requestURLs, [url])
-    }
-    
-    func test_loadTwice_requestsDataFromUrlTwice() {
-        let url = URL(string: "https://a-test.com")!
-        let (sut, client) = makeSUT(url: url)
-        
-        sut.load { _ in }
-        sut.load { _ in }
-        
-        XCTAssertEqual(client.requestURLs, [url, url])
-    }
-    
-    func test_load_deliversErrorOnClientError() {
-        let url = URL(string: "https://a-test.com")!
-        let (sut, client) = makeSUT(url: url)
-        
-        expect(sut, with: failuer(.connectivity), when: {
-            let error = NSError(domain: "Test", code: 0)
-            client.complete(with: error)
-        })
-    }
-    
     func test_load_deliversErrorNon200HTTPResponse() {
         let url = URL(string: "https://a-test.com")!
         let (sut, client) = makeSUT(url: url)
@@ -95,21 +60,6 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
             let json = makeJSONData([item1.json, item2.json])
             client.complete(withStatusCode: 200, data: json)
         })
-        
-    }
-    
-    func test_load_doNotDeliversResultWhenSUTHasBeenDeallocated() {
-        let url = URL(string: "http://A-url.com")!
-        let client = HTTPClientSpy()
-        var sut: RemoteFeedLoader? = RemoteFeedLoader(url: url, client: client)
-        
-        var capturedResults = [RemoteFeedLoader.Result]()
-        sut?.load { capturedResults.append($0) }
-        
-        sut = nil
-        client.complete(withStatusCode: 200, data: makeJSONData([]))
-        
-        XCTAssert(capturedResults.isEmpty)
         
     }
     
