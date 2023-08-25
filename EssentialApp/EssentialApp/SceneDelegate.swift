@@ -36,7 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let url = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed/v1/feed")!
     
     
-    private lazy var remoteFeedLoader = RemoteFeedLoader(url: url, client: htttpClient)
+    private lazy var remoteFeedLoader = RemoteLoader(url: url, client: htttpClient, mapper: FeedItemsMapper.map)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
