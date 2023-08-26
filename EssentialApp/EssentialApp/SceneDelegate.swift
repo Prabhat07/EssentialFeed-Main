@@ -55,7 +55,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     }
 
-    func makeRemoteFeedLoaderWithFallback() -> FeedLoader.Publisher {
+    func makeRemoteFeedLoaderWithFallback() -> AnyPublisher<[FeedImage], Error> {
         
         return htttpClient
             .getPublisher(from: url)
