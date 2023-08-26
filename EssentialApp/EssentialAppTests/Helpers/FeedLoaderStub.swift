@@ -7,14 +7,14 @@
 
 import EssentialFeed
 
-class FeedLoaderStub: FeedLoader {
-   private let result: FeedLoader.Result
-   
-   init(result: FeedLoader.Result) {
-       self.result = result
-   }
-   
-   func load(completion: @escaping (FeedLoader.Result) -> Void) {
-       completion(result)
-   }
-}
+//class FeedLoaderStub: FeedLoader {
+//   private let result: Swift.Result<[FeedImage], Error>
+//   
+//   init(result: Swift.Result<[FeedImage], Error>) {
+//       self.result = result
+//   }
+//   
+//   func load(completion: @escaping (Swift.Result<[FeedImage], Error>) -> Void) {
+//       completion(result)
+//   }
+//}
