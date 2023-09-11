@@ -23,19 +23,15 @@ final class LoadResourcePresenterTests: XCTestCase {
     }
     
     func test_didFinishLoadingResource_displayResourceAndStopLoading() {
-        
         let (sut, view) = makeSUT { resource in
             resource + " view model"
         }
-        
-        let feed = uniqueImageFeed().models
         
         sut.didFinishLoading(with: "resource")
         
         XCTAssertEqual(view.messages,
                        [.display(resourceViewModel: "resource view model"),
                         .display(isLoading: false)])
-        
     }
     
     func test_didFinishLoadingFeedWithError_displayLocalizedErrorMessageAndStopLoading() {
@@ -51,12 +47,14 @@ final class LoadResourcePresenterTests: XCTestCase {
     
     //Helpers
     
+    private typealias SUT = LoadResourcePresenter<String, ViewSpy>
+    
     private func makeSUT(
-        mapper:@escaping LoadResourcePresenter.Mapper = { _ in "any"},
+        mapper:@escaping SUT.Mapper = { _ in "any"},
         file: StaticString = #file,
-        line: UInt = #line) -> (LoadResourcePresenter, ViewSpy) {
+        line: UInt = #line) -> (SUT, ViewSpy) {
         let view = ViewSpy()
-        let sut = LoadResourcePresenter(resourceView: view, loadingView: view, errorView: view, mapper: mapper)
+        let sut = SUT(resourceView: view, loadingView: view, errorView: view, mapper: mapper)
         trackForMemoryLeaks(view, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, view)
@@ -64,7 +62,7 @@ final class LoadResourcePresenterTests: XCTestCase {
     
     private func localized(_ key: String, file: StaticString = #file, line: UInt = #line) -> String {
        let table = "Feed"
-       let bundle = Bundle(for: FeedPresenter.self)
+       let bundle = Bundle(for: SUT.self)
        let value = bundle.localizedString(forKey: key, value: nil, table: table)
        if value == key {
            XCTAssertNotEqual(key, value, "Missing localized string for Key: \(key), in table: \(table)", file: file, line: line)
@@ -73,6 +71,8 @@ final class LoadResourcePresenterTests: XCTestCase {
    }
     
     private class ViewSpy: ResourceView, FeedLoadingView, FeedErrorView {
+        
+        typealias ResourceViewModel = String
         
         enum Message: Hashable {
             case display(errorMessage: String?)
