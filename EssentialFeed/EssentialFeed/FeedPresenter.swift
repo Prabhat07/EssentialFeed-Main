@@ -15,7 +15,10 @@ public class FeedPresenter {
    
     public static var title: String {
         let bundle = Bundle(for: FeedPresenter.self)
-        return NSLocalizedString("FEED_VIEW_TITLE", tableName: "Feed", bundle: bundle, comment: "Title for feed view")
+        return NSLocalizedString("FEED_VIEW_TITLE",
+                                 tableName: "Feed",
+                                 bundle: bundle,
+                                 comment: "Title for feed view")
     }
     
     public static func map(_ feed: [FeedImage]) -> FeedViewModel {
