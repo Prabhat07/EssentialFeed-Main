@@ -10,6 +10,15 @@ import EssentialFeed
 
 class FeedImagePresenterTest: XCTestCase {
 
+    func test_map_cereatesImageViewModle() {
+        let image = uniqueImage()
+        
+        let viewModel = FeedImagePresenter<ViewSpy, AnyImage>.map(image)
+        
+        XCTAssertEqual(viewModel.description, image.description)
+        XCTAssertEqual(viewModel.location, image.location)
+    }
+    
     func test_init_doseNotSendMessageToView() {
         let (_, view) = makeSUT()
         
