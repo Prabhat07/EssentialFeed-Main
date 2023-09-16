@@ -14,7 +14,7 @@ final class ImageCommentsPresenterTests: XCTestCase {
         XCTAssertEqual(ImageCommentsPresenter.title, localized("IMAGE_COMMENTS_VIEW_TITLE"))
     }
     
-    func test_map_createsCommentsViewModle() {
+    func test_map_createsViewModels() {
         let now = Date()
         let calendar = Calendar(identifier: .gregorian)
         let locale = Locale(identifier: "en_US_POSIX")
