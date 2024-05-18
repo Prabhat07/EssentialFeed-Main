@@ -11,7 +11,7 @@ import EssentialFeediOS
 extension ListViewController {
     
     func simulateUserInitiateFeedLoad() {
-        self.refreshControl?.simulatePullToResfresh()
+        self.refreshControl?.simulatePullToRefresh()
     }
     
     @discardableResult
