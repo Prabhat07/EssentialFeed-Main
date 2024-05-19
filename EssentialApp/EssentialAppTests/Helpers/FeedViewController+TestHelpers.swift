@@ -8,10 +8,10 @@
 import UIKit
 import EssentialFeediOS
 
-extension FeedViewController {
+extension ListViewController {
     
     func simulateUserInitiateFeedLoad() {
-        self.refreshControl?.simulatePullToResfresh()
+        self.refreshControl?.simulatePullToRefresh()
     }
     
     @discardableResult
@@ -47,16 +47,19 @@ extension FeedViewController {
     }
 
     var errorMessage: String? {
-        return errorView?.message
+        return errorView.message
     }
 
+    func simulateErrorViewTap() {
+        errorView.simulateTap()
+    }
     
     var isShowingLoadingIndicator: Bool {
         return self.refreshControl?.isRefreshing == true
     }
     
     func numberOfRenderedFeedImageViews() -> Int {
-        return tableView.numberOfRows(inSection: feedImageSection)
+        return tableView.numberOfSections == 0 ? 0 : tableView.numberOfRows(inSection: feedImageSection)
     }
     
     var feedImageSection: Int {

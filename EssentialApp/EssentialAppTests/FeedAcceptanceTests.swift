@@ -60,7 +60,7 @@ class FeedAcceptanceTests: XCTestCase {
     private func launch(
         httpClient: HTTPClientStub = .offline,
         store: InMemoryFeedStore = .empty
-    ) -> FeedViewController {
+    ) -> ListViewController {
    
         let sut = SceneDelegate(httpClient: httpClient, store: store)
         
@@ -68,7 +68,7 @@ class FeedAcceptanceTests: XCTestCase {
         sut.configureWindow()
         
         let nav = sut.window?.rootViewController as? UINavigationController
-        return nav?.topViewController as! FeedViewController
+        return nav?.topViewController as! ListViewController
     }
     
     private func enterBackground(with store: InMemoryFeedStore) {
