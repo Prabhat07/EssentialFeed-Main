@@ -10,9 +10,62 @@ import EssentialFeediOS
 
 extension ListViewController {
     
-    func simulateUserInitiateLoad() {
-        self.refreshControl?.simulatePullToRefresh()
+    public override func loadViewIfNeeded() {
+         super.loadViewIfNeeded()
+        
+         tableView.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
     }
+    
+    func simulateUserInitiateLoad() {
+        refreshControl?.simulatePullToRefresh()
+    }
+    
+    var errorMessage: String? {
+        return errorView.message
+    }
+    
+    func simulateErrorViewTap() {
+        errorView.simulateTap()
+    }
+    
+    var isShowingLoadingIndicator: Bool {
+        return self.refreshControl?.isRefreshing == true
+    }
+}
+
+extension ListViewController {
+    
+    func numberOfRenderedComments() -> Int {
+        return tableView.numberOfSections == 0 ? 0 : tableView.numberOfRows(inSection: commentsSection)
+    }
+    
+    func commentMessage(at row:Int) -> String? {
+        commentView(at: row)?.messageLabel.text
+    }
+    
+    func commentDate(at row:Int) -> String? {
+        commentView(at: row)?.dateLabel.text
+    }
+    
+    func commentUsername(at row:Int) -> String? {
+        commentView(at: row)?.usernameLabel.text
+    }
+    
+    private func commentView(at row: Int) -> ImageCommentCell? {
+        guard numberOfRenderedComments() > row else {
+            return nil
+        }
+        let ds = tableView.dataSource
+        let indexPath = IndexPath(row: row, section: commentsSection)
+        return ds?.tableView(tableView, cellForRowAt: indexPath) as? ImageCommentCell
+    }
+    
+    var commentsSection: Int {
+        return 0
+    }
+}
+   
+extension ListViewController {
     
     @discardableResult
     func simulateFeedImageViewVisible(at index: Int) -> FeedImageCell? {
@@ -44,18 +97,6 @@ extension ListViewController {
     
     func renderedFeedImageData(at index: Int) -> Data? {
         return simulateFeedImageViewVisible(at: index)?.renderedImage
-    }
-
-    var errorMessage: String? {
-        return errorView.message
-    }
-
-    func simulateErrorViewTap() {
-        errorView.simulateTap()
-    }
-    
-    var isShowingLoadingIndicator: Bool {
-        return self.refreshControl?.isRefreshing == true
     }
     
     func numberOfRenderedFeedImageViews() -> Int {

@@ -7,11 +7,11 @@
 
 import Foundation
 
-public struct ImageCommnetsViewModel {
+public struct ImageCommentsViewModel {
     public let comments: [ImageCommnetViewModel]
 }
 
-public struct ImageCommnetViewModel: Equatable {
+public struct ImageCommnetViewModel: Hashable {
     public let message: String
     public let date: String
     public let userName: String
@@ -37,13 +37,13 @@ public class ImageCommentsPresenter {
                            cureentDate: Date = Date(),
                            calendar: Calendar = .current,
                            locale: Locale = .current
-    ) -> ImageCommnetsViewModel {
+    ) -> ImageCommentsViewModel {
         
         let formatter = RelativeDateTimeFormatter()
         formatter.calendar = calendar
         formatter.locale = locale
         
-        return ImageCommnetsViewModel(comments: comments.map( { comment in
+        return ImageCommentsViewModel(comments: comments.map( { comment in
             ImageCommnetViewModel(message: comment.message,
                                   date: formatter.localizedString(for: comment.createdAt, relativeTo: Date()),
                                   userName: comment.username)

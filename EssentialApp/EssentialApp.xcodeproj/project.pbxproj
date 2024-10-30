@@ -38,7 +38,7 @@
 		43B3C7292849A8F2001CDEF8 /* UIButton+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B3C7282849A8F2001CDEF8 /* UIButton+TestHelpers.swift */; };
 		43B3C72B2849A956001CDEF8 /* UIRefreshControl+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B3C72A2849A956001CDEF8 /* UIRefreshControl+TestHelpers.swift */; };
 		43B3C72F2849A9D5001CDEF8 /* UIControl+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B3C72E2849A9D5001CDEF8 /* UIControl+TestHelpers.swift */; };
-		43B3C7312849AB11001CDEF8 /* FeedViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B3C7302849AB11001CDEF8 /* FeedViewController+TestHelpers.swift */; };
+		43B3C7312849AB11001CDEF8 /* ListViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B3C7302849AB11001CDEF8 /* ListViewController+TestHelpers.swift */; };
 		43B3C733284EE918001CDEF8 /* FeedAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B3C732284EE918001CDEF8 /* FeedAcceptanceTests.swift */; };
 		43E970E62850272800FE5AE3 /* HTTPClientStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E970E52850272800FE5AE3 /* HTTPClientStub.swift */; };
 		43E970E82850280900FE5AE3 /* InMemoryFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E970E72850280900FE5AE3 /* InMemoryFeedStore.swift */; };
@@ -105,7 +105,7 @@
 		43B3C7282849A8F2001CDEF8 /* UIButton+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+TestHelpers.swift"; sourceTree = "<group>"; };
 		43B3C72A2849A956001CDEF8 /* UIRefreshControl+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+TestHelpers.swift"; sourceTree = "<group>"; };
 		43B3C72E2849A9D5001CDEF8 /* UIControl+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+TestHelpers.swift"; sourceTree = "<group>"; };
-		43B3C7302849AB11001CDEF8 /* FeedViewController+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedViewController+TestHelpers.swift"; sourceTree = "<group>"; };
+		43B3C7302849AB11001CDEF8 /* ListViewController+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewController+TestHelpers.swift"; sourceTree = "<group>"; };
 		43B3C732284EE918001CDEF8 /* FeedAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAcceptanceTests.swift; sourceTree = "<group>"; };
 		43E970E52850272800FE5AE3 /* HTTPClientStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientStub.swift; sourceTree = "<group>"; };
 		43E970E72850280900FE5AE3 /* InMemoryFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryFeedStore.swift; sourceTree = "<group>"; };
@@ -210,7 +210,7 @@
 				43B3C7282849A8F2001CDEF8 /* UIButton+TestHelpers.swift */,
 				43B3C72A2849A956001CDEF8 /* UIRefreshControl+TestHelpers.swift */,
 				43B3C72E2849A9D5001CDEF8 /* UIControl+TestHelpers.swift */,
-				43B3C7302849AB11001CDEF8 /* FeedViewController+TestHelpers.swift */,
+				43B3C7302849AB11001CDEF8 /* ListViewController+TestHelpers.swift */,
 				43E970E52850272800FE5AE3 /* HTTPClientStub.swift */,
 				43E970E72850280900FE5AE3 /* InMemoryFeedStore.swift */,
 				43EC03B52852DF29008F6608 /* UIView+TestHelpers.swift */,
@@ -346,7 +346,7 @@
 			files = (
 				43B3C6DC282F4A4F001CDEF8 /* SharedTestHelpers.swift in Sources */,
 				43B3C72F2849A9D5001CDEF8 /* UIControl+TestHelpers.swift in Sources */,
-				43B3C7312849AB11001CDEF8 /* FeedViewController+TestHelpers.swift in Sources */,
+				43B3C7312849AB11001CDEF8 /* ListViewController+TestHelpers.swift in Sources */,
 				43B3C6EE2831E70F001CDEF8 /* XCTestCase+FeedImageDataLoader.swift in Sources */,
 				43B3C7252849A76D001CDEF8 /* FeedUIIntegrationTests+Assertions.swift in Sources */,
 				43B3C7052849A182001CDEF8 /* SceneDelegateTests.swift in Sources */,
