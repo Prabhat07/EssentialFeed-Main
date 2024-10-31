@@ -27,6 +27,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         LocalFeedLoader(store: store, currentDate: Date.init)
     }()
     
+    private lazy var baseURL = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed")!
+    
+    private lazy var navigationController = UINavigationController(
+        rootViewController: FeedUIComposer.feedComposedWith(
+            feedLoader: makeRemoteFeedLoaderWithFallback,
+            imageLoader: makeLocalImageLoaderWithRemoteFallback,
+            selection: showComments))
+    
     convenience init(httpClient: HTTPClient, store: FeedStore & FeedImageDataStore) {
         self.init()
         self.htttpClient = httpClient
@@ -46,18 +54,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func configureWindow() {
-
-        window?.rootViewController = UINavigationController(rootViewController:  FeedUIComposer.feedComposedWith(feedLoader: makeRemoteFeedLoaderWithFallback, imageLoader: makeLocalImageLoaderWithRemoteFallback))
+        window?.rootViewController = navigationController
         
         window?.makeKeyAndVisible()
 
     }
 
+    private func showComments(for image: FeedImage) {
+        let url = baseURL.appendingPathComponent("/v1/image/\(image.id)/comments")
+        let comments = CommentsUIComposer.commentsComposedWith(commentsLoader: makeCommentsLoader(url: url))
+        navigationController.pushViewController(comments, animated: true)
+    }
+    
+    private func makeCommentsLoader(url: URL) -> () -> AnyPublisher<[ImageComment], Error> {
+        return { [htttpClient] in
+            return htttpClient
+                .getPublisher(from: url)
+                .tryMap(ImageCommentsMapper.map)
+                .eraseToAnyPublisher()
+        }
+    }
+    
     func makeRemoteFeedLoaderWithFallback() -> AnyPublisher<[FeedImage], Error> {
-        let url = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed/v1/feed")!
+        let remoteURL = baseURL.appendingPathComponent("/v1/feed")
         
         return htttpClient
-            .getPublisher(from: url)
+            .getPublisher(from: remoteURL)
             .tryMap(FeedItemsMapper.map)
             .caching(with: localFeedLoader)
             .fallback(to: localFeedLoader.loadPublisher)
