@@ -10,10 +10,33 @@ import EssentialFeediOS
 
 extension ListViewController {
     
-    public override func loadViewIfNeeded() {
-         super.loadViewIfNeeded()
+//    public override func loadViewIfNeeded() {
+//         super.loadViewIfNeeded()
+//        
+//         tableView.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
+//    }
+    
+    func simulateAppearance() {
+        if !isViewLoaded {
+            loadViewIfNeeded()
+            replaceRefreshControlWithFakeForiOS17Support()
+            tableView.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
+        }
+        beginAppearanceTransition(true, animated: false)
+        endAppearanceTransition()
+    }
+    
+    func replaceRefreshControlWithFakeForiOS17Support() {
+        let fake = FakeRefreshControl()
         
-         tableView.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
+        refreshControl?.allTargets.forEach { target in
+            refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach { action in
+                fake.addTarget(target, action: Selector(action), for: .valueChanged)
+            }
+            
+        }
+        
+        refreshControl = fake
     }
     
     func simulateUserInitiateLoad() {
@@ -125,3 +148,16 @@ extension ListViewController {
     
 }
 
+private class FakeRefreshControl: UIRefreshControl {
+    private var _isRefreshing: Bool = false
+    
+    public override var isRefreshing: Bool { _isRefreshing }
+    
+    public override func beginRefreshing() {
+        _isRefreshing = true
+    }
+    
+    public override func endRefreshing() {
+        _isRefreshing = false
+    }
+}

@@ -156,7 +156,7 @@ class FeedUIIntegrationTests: XCTestCase {
         
         let (sut, loader) = makeSUT()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeLoading(with: [image0, image1])
         
         XCTAssertEqual(loader.loadedImageURLs, [], "Expected no image url request until view become visible")
@@ -174,7 +174,7 @@ class FeedUIIntegrationTests: XCTestCase {
         
         let (sut, loader) = makeSUT()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeLoading(with: [image0, image1])
         
         XCTAssertEqual(loader.cancelledImageURLs, [], "Expected no image url request until view become visible")
