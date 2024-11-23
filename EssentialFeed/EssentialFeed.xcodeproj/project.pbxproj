@@ -110,6 +110,8 @@
 		43D13DF82A8F9754009FC84C /* ImageCommentsMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D13DF72A8F9754009FC84C /* ImageCommentsMapperTests.swift */; };
 		43D13DFC2A8F9C73009FC84C /* ImageCommentsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D13DFB2A8F9C73009FC84C /* ImageCommentsMapper.swift */; };
 		43D13DFF2A90B7E2009FC84C /* ImageComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D13DFE2A90B7E2009FC84C /* ImageComment.swift */; };
+		43D1FDC12CF16A3F004CD629 /* LoadMoreCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D1FDC02CF16A3F004CD629 /* LoadMoreCellController.swift */; };
+		43D1FDC32CF172E3004CD629 /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D1FDC22CF172E3004CD629 /* LoadMoreCell.swift */; };
 		43E970EA2850363300FE5AE3 /* FeedSanpshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E970E92850363300FE5AE3 /* FeedSanpshotTests.swift */; };
 		43EC03AF285177E3008F6608 /* UIImage+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EC03AE285177E3008F6608 /* UIImage+TestHelpers.swift */; };
 		43EC03B4285185FE008F6608 /* UITableView+HeaderSizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EC03B3285185FE008F6608 /* UITableView+HeaderSizing.swift */; };
@@ -283,6 +285,8 @@
 		43D13DF72A8F9754009FC84C /* ImageCommentsMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCommentsMapperTests.swift; sourceTree = "<group>"; };
 		43D13DFB2A8F9C73009FC84C /* ImageCommentsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCommentsMapper.swift; sourceTree = "<group>"; };
 		43D13DFE2A90B7E2009FC84C /* ImageComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageComment.swift; sourceTree = "<group>"; };
+		43D1FDC02CF16A3F004CD629 /* LoadMoreCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreCellController.swift; sourceTree = "<group>"; };
+		43D1FDC22CF172E3004CD629 /* LoadMoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
 		43E970E92850363300FE5AE3 /* FeedSanpshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSanpshotTests.swift; sourceTree = "<group>"; };
 		43EC03AE285177E3008F6608 /* UIImage+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+TestHelpers.swift"; sourceTree = "<group>"; };
 		43EC03B3285185FE008F6608 /* UITableView+HeaderSizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+HeaderSizing.swift"; sourceTree = "<group>"; };
@@ -736,6 +740,7 @@
 			isa = PBXGroup;
 			children = (
 				43063A5E271E58AF002A0217 /* FeedImageCellController.swift */,
+				43D1FDC02CF16A3F004CD629 /* LoadMoreCellController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -747,6 +752,7 @@
 				43BD177827054A3B00859138 /* FeedImageCell.swift */,
 				43B348CE2798F630008E8A5A /* Feed.storyboard */,
 				43B348D52798F658008E8A5A /* Feed.xcassets */,
+				43D1FDC22CF172E3004CD629 /* LoadMoreCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1203,10 +1209,12 @@
 				43BD17712703F44C00859138 /* ListViewController.swift in Sources */,
 				4397E39A27A1400700C49EB9 /* UIImageView+Animations.swift in Sources */,
 				43BD177927054A3B00859138 /* FeedImageCell.swift in Sources */,
+				43D1FDC32CF172E3004CD629 /* LoadMoreCell.swift in Sources */,
 				435490B62AC93E1B00FED90F /* ImageCommentCell.swift in Sources */,
 				431B1A7727F686DF0046BA23 /* ErrorView.swift in Sources */,
 				435490AC2AC9252900FED90F /* ImageCommentCellController.swift in Sources */,
 				43063A5F271E58AF002A0217 /* FeedImageCellController.swift in Sources */,
+				43D1FDC12CF16A3F004CD629 /* LoadMoreCellController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
