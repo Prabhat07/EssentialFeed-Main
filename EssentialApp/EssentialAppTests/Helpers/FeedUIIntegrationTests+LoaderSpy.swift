@@ -14,20 +14,20 @@ class LoaderSpy: FeedImageDataLoader {
     
     //MARK:- FeedLoader
     
-    var feedRequests = [PassthroughSubject<[FeedImage], Error>]()
+    var feedRequests = [PassthroughSubject<Paginated<FeedImage>, Error>]()
     
     var loadFeedCallCount: Int {
         return feedRequests.count
     }
     
-    func loadPublisher() -> AnyPublisher<[FeedImage], Error> {
-        let publisher = PassthroughSubject<[FeedImage], Error>()
+    func loadPublisher() -> AnyPublisher<Paginated<FeedImage>, Error> {
+        let publisher = PassthroughSubject<Paginated<FeedImage>, Error>()
         feedRequests.append(publisher)
         return publisher.eraseToAnyPublisher()
     }
     
     func completeLoading(with feed: [FeedImage] = [], at index: Int = 0) {
-        feedRequests[index].send(feed)
+        feedRequests[index].send(Paginated(items: feed))
     }
     
     func completeLoadingWithError(at index: Int = 0) {
