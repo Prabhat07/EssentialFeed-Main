@@ -13,7 +13,7 @@ extension ListViewController {
     public override func loadViewIfNeeded() {
          super.loadViewIfNeeded()
         
-         tableView.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
+         // tableView.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
     }
     
     func simulateUserInitiateLoad() {
@@ -89,8 +89,6 @@ extension ListViewController {
     }
     
     func simulateTapOnFeedImage(at row: Int) {
-        let view = simulateFeedImageViewVisible(at: row)
-        
         let delegate = tableView.delegate
         let index = IndexPath(row: row, section: feedImageSection)
         delegate?.tableView?(tableView, didSelectRowAt: index)
@@ -109,6 +107,15 @@ extension ListViewController {
         ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
     }
     
+    func simulateLoadMoreFeedAction() {
+        guard let view = cell(row: 0, section: feedLoadMoreSection) else { return }
+        
+        let delegate = tableView.delegate
+        let index = IndexPath(row: 0, section: feedLoadMoreSection)
+        delegate?.tableView?(tableView, willDisplay: view, forRowAt: index)
+    }
+    
+    
     func renderedFeedImageData(at index: Int) -> Data? {
         return simulateFeedImageViewVisible(at: index)?.renderedImage
     }
@@ -117,7 +124,9 @@ extension ListViewController {
         numberOfRows(in: feedImageSection)
     }
     
-    var feedImageSection: Int { 0 }
+    private var feedImageSection: Int { 0 }
+    
+    private var feedLoadMoreSection: Int { 1 }
     
     func feedImageView(at row: Int) -> UITableViewCell? {
         cell(row: row, section: feedImageSection)
