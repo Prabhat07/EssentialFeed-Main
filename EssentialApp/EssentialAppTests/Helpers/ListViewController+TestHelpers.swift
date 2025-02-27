@@ -10,34 +10,37 @@ import EssentialFeediOS
 
 extension ListViewController {
     
-//    public override func loadViewIfNeeded() {
-//         super.loadViewIfNeeded()
-//        
-//         tableView.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
-//    }
-    
     func simulateAppearance() {
-        if !isViewLoaded {
-            loadViewIfNeeded()
-            replaceRefreshControlWithFakeForiOS17Support()
-            tableView.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
-        }
-        beginAppearanceTransition(true, animated: false)
-        endAppearanceTransition()
-    }
-    
-    func replaceRefreshControlWithFakeForiOS17Support() {
-        let fake = FakeRefreshControl()
-        
-        refreshControl?.allTargets.forEach { target in
-            refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach { action in
-                fake.addTarget(target, action: Selector(action), for: .valueChanged)
+            if !isViewLoaded {
+                loadViewIfNeeded()
+                prepareForFirstAppearance()
             }
             
+            beginAppearanceTransition(true, animated: false)
+            endAppearanceTransition()
         }
         
-        refreshControl = fake
-    }
+        private func prepareForFirstAppearance() {
+            setSmallFrameToPreventRenderingCells()
+            replaceRefreshControlWithFakeForiOS17PlusSupport()
+        }
+        
+        private func setSmallFrameToPreventRenderingCells() {
+            tableView.frame = CGRect(x: 0, y: 0, width: 390, height: 1)
+        }
+        
+        private func replaceRefreshControlWithFakeForiOS17PlusSupport() {
+            let fakeRefreshControl = FakeRefreshControl()
+            
+            refreshControl?.allTargets.forEach { target in
+                refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach { action in
+                    fakeRefreshControl.addTarget(target, action: Selector(action), for: .valueChanged)
+                }
+            }
+            
+            refreshControl = fakeRefreshControl
+        }
+        
     
     func simulateUserInitiateLoad() {
         refreshControl?.simulatePullToRefresh()
@@ -108,6 +111,7 @@ extension ListViewController {
         let delegate = tableView.delegate
         let index = IndexPath(row: row, section: feedImageSection)
         delegate?.tableView?(tableView, didEndDisplaying: view!, forRowAt: index)
+        
         return view
     }
     

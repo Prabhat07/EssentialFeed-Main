@@ -75,6 +75,8 @@ class FeedAcceptanceTests: XCTestCase {
         sut.configureWindow()
         
         let nav = sut.window?.rootViewController as? UINavigationController
+        let vc = nav?.topViewController as! ListViewController
+        vc.simulateAppearance()
         return nav?.topViewController as! ListViewController
     }
     
@@ -99,6 +101,8 @@ class FeedAcceptanceTests: XCTestCase {
         RunLoop.current.run(until: Date())
         
         let nav = feed.navigationController
+        let vc = nav?.topViewController as! ListViewController
+        vc.simulateAppearance()
         return nav?.topViewController as! ListViewController
     }
 

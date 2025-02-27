@@ -29,9 +29,9 @@ final public class ListViewController: UITableViewController, UITableViewDataSou
         tableView.dataSource = dataSource
         configureErrorView()
         
-        onViewAppearing = {[self] vc in
+        onViewAppearing = { vc in
+            vc.onViewAppearing = nil
             vc.refresh()
-            onViewAppearing = nil
         }
     }
     

@@ -17,7 +17,7 @@ final class CommentsUIIntegratiponTests: XCTestCase {
     func test_commentsView_hasTitle() {
         let (sut, _) = makeSUT()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         
         XCTAssertEqual(sut.title, commentsTitle)
     }
@@ -26,7 +26,7 @@ final class CommentsUIIntegratiponTests: XCTestCase {
         let (sut, loader) = makeSUT()
         XCTAssertEqual(loader.loadCommentsCallCount, 0, "Expect no loading request before view is loaded")
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         
         XCTAssertEqual(loader.loadCommentsCallCount, 1, "Expect loaidng request when view is loaded")
         
@@ -38,18 +38,29 @@ final class CommentsUIIntegratiponTests: XCTestCase {
         
     }
     
+    func test_loadCommentsActions_runsAutomaticallyOnlyOnFirstAppearance() {
+        let (sut, loader) = makeSUT()
+        XCTAssertEqual(loader.loadCommentsCallCount, 0, "Expected no loading requests before view appears")
+        
+        sut.simulateAppearance()
+        XCTAssertEqual(loader.loadCommentsCallCount, 1, "Expected a loading request once view appears")
+        
+        sut.simulateAppearance()
+        XCTAssertEqual(loader.loadCommentsCallCount, 1, "Expected no loading request the second time view appears")
+    }
+    
     func test_loadingCommentsIndicator_isVisibleWhileLaodingComments() {
         let (sut, loader) = makeSUT()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         
-        //XCTAssertTrue(sut.isShowingLoadingIndicator, "Expect loading indicator once view is loaded")
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expect loading indicator once view is loaded")
         
         loader.completeCommentsLoading(at: 0)
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expect no loaidng indicator once loadoing is completed successfully")
         
         sut.simulateUserInitiateLoad()
-        //XCTAssertTrue(sut.isShowingLoadingIndicator, "Expect loading inidcator once user initiates a load")
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expect loading inidcator once user initiates a load")
         
         loader.completeCommentsLoadingWithError(at: 1)
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expect no loading indicator once user initiates loaidng complete with error")
@@ -60,7 +71,7 @@ final class CommentsUIIntegratiponTests: XCTestCase {
         let comment1 = makeComment(message: "another message", username: "another username")
         let (sut, loader) = makeSUT()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         assertThat(sut, isRendering: [ImageComment]())
         
         loader.completeCommentsLoading(with: [comment0], at: 0)
@@ -75,7 +86,7 @@ final class CommentsUIIntegratiponTests: XCTestCase {
         let comment = makeComment()
         let (sut, loader) = makeSUT()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeCommentsLoading(with: [comment], at: 0)
         assertThat(sut, isRendering: [comment])
         
@@ -88,7 +99,7 @@ final class CommentsUIIntegratiponTests: XCTestCase {
         let comment = makeComment()
         let (sut, loader) = makeSUT()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeCommentsLoading(with: [comment], at: 0)
         assertThat(sut, isRendering: [comment])
         
@@ -100,7 +111,7 @@ final class CommentsUIIntegratiponTests: XCTestCase {
     func test_loadCommentsCompletion_rendersErrorMessageOnErrorUntilNextReload() {
         let (sut, loader) = makeSUT()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         XCTAssertEqual(sut.errorMessage, nil)
         
         loader.completeCommentsLoadingWithError(at: 0)
@@ -113,7 +124,7 @@ final class CommentsUIIntegratiponTests: XCTestCase {
     func test_tapOnErrorView_hidesErrorMessage() {
         let (sut, loader) = makeSUT()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         XCTAssertEqual(sut.errorMessage, nil)
         
         loader.completeCommentsLoadingWithError(at: 0)
@@ -125,7 +136,7 @@ final class CommentsUIIntegratiponTests: XCTestCase {
     
     func test_laodCommentsCompletion_dispatchesFromBackgroundToMainThread() {
         let (sut, loader) = makeSUT()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         
         let exp = expectation(description: "Wait for background queue")
         DispatchQueue.global().async {
@@ -147,7 +158,7 @@ final class CommentsUIIntegratiponTests: XCTestCase {
                 }).eraseToAnyPublisher()
             })
             
-            sut?.loadViewIfNeeded()
+            sut?.simulateAppearance()
         }
         
         XCTAssertEqual(cancelCallCount, 0)
@@ -187,9 +198,7 @@ final class CommentsUIIntegratiponTests: XCTestCase {
     
     private class LoaderSpy {
         
-        //MARK:- FeedLoader
-        
-        var requests = [PassthroughSubject<[ImageComment], Error>]()
+        private var requests = [PassthroughSubject<[ImageComment], Error>]()
         
         var loadCommentsCallCount: Int {
             return requests.count
@@ -203,10 +212,11 @@ final class CommentsUIIntegratiponTests: XCTestCase {
         
         func completeCommentsLoading(with comments: [ImageComment] = [], at index: Int = 0) {
             requests[index].send(comments)
+            requests[index].send(completion: .finished)
         }
         
         func completeCommentsLoadingWithError(at index: Int = 0) {
-            let error = NSError(domain: "Any error", code: 0)
+            let error = NSError(domain: "an error", code: 0)
             requests[index].send(completion: .failure(error))
         }
     }
