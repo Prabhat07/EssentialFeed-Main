@@ -21,7 +21,7 @@ final public class ListViewController: UITableViewController, UITableViewDataSou
         }
     }()
     
-    private var onViewAppearing: ((ListViewController) -> ())?
+    private var onViewDidAppear: ((ListViewController) -> Void)?
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,15 +29,16 @@ final public class ListViewController: UITableViewController, UITableViewDataSou
         tableView.dataSource = dataSource
         configureErrorView()
         
-        onViewAppearing = { vc in
-            vc.onViewAppearing = nil
+        onViewDidAppear = { vc in
+            vc.onViewDidAppear = nil
             vc.refresh()
         }
     }
     
-    public override func viewIsAppearing(_ animated: Bool) {
-        super.viewIsAppearing(animated)
-        onViewAppearing?(self)
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        onViewDidAppear?(self)
     }
     
     public override func viewDidLayoutSubviews() {
