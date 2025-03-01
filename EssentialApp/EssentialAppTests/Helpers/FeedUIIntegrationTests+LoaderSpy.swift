@@ -28,6 +28,7 @@ class LoaderSpy {
     
     func completeLoading(with feed: [FeedImage] = [], at index: Int = 0) {
         feedRequests[index].send(feed)
+        feedRequests[index].send(completion: .finished)
     }
     
     func completeLoadingWithError(at index: Int = 0) {

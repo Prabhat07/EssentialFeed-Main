@@ -24,18 +24,21 @@ final class CommentsUIIntegratiponTests: XCTestCase {
     
     func test_loadsCommentsActions_requestCommnetsFromLoader() {
         let (sut, loader) = makeSUT()
-        XCTAssertEqual(loader.loadCommentsCallCount, 0, "Expect no loading request before view is loaded")
+        XCTAssertEqual(loader.loadCommentsCallCount, 0, "Expected no loading requests before view appears")
         
         sut.simulateAppearance()
-        
-        XCTAssertEqual(loader.loadCommentsCallCount, 1, "Expect loaidng request when view is loaded")
-        
-        sut.simulateUserInitiateLoad()
-        XCTAssertEqual(loader.loadCommentsCallCount, 2, "Expect another loaidng request when user initiates a load")
+        XCTAssertEqual(loader.loadCommentsCallCount, 1, "Expected a loading request once view appears")
         
         sut.simulateUserInitiateLoad()
-        XCTAssertEqual(loader.loadCommentsCallCount, 3, "Expect third laoding request when user initiates another load")
+        XCTAssertEqual(loader.loadCommentsCallCount, 1, "Expected no request until previous completes")
         
+        loader.completeCommentsLoading(at: 0)
+        sut.simulateUserInitiateLoad()
+        XCTAssertEqual(loader.loadCommentsCallCount, 2, "Expected another loading request once user initiates a reload")
+        
+        loader.completeCommentsLoading(at: 1)
+        sut.simulateUserInitiateLoad()
+        XCTAssertEqual(loader.loadCommentsCallCount, 3, "Expected yet another loading request once user initiates another reload")
     }
     
     func test_loadCommentsActions_runsAutomaticallyOnlyOnFirstAppearance() {
