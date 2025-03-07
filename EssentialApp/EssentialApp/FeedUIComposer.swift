@@ -22,14 +22,14 @@ public final class FeedUIComposer {
     ) -> ListViewController {
             
         let presentationAdapter = FeedPresentationAdapter(
-            loader: { feedLoader().dispatchOnMainQueue() })
+            loader: { feedLoader().dispatchOnMainThread() })
         
         let feedController = makeFeedViewController(title: FeedPresenter.title)
             feedController.onRefresh = presentationAdapter.loadResource
         
         presentationAdapter.presenter = LoadResourcePresenter(
             resourceView: FeedViewAdapter(controller: feedController,
-                                          imageLoader: { imageLoader($0).dispatchOnMainQueue() },
+                                          imageLoader: { imageLoader($0).dispatchOnMainThread() },
                                           selection: selection),
             loadingView: WeakRefVirtualProxy(feedController),
             errorView: WeakRefVirtualProxy(feedController),
