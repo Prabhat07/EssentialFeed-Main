@@ -34,12 +34,14 @@ final public class ListViewController: UITableViewController, UITableViewDataSou
             vc.refresh()
         }
     }
-    
-    public override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    public override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
         onViewDidAppear?(self)
     }
+//    public override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        onViewDidAppear?(self)
+//    }
     
     public override func viewDidLayoutSubviews() {
          super.viewDidLayoutSubviews()
