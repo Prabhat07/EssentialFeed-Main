@@ -55,7 +55,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func configureWindow() {
         window?.rootViewController = navigationController
-        
         window?.makeKeyAndVisible()
 
     }

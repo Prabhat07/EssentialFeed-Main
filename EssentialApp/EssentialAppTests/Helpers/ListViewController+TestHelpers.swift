@@ -10,10 +10,35 @@ import EssentialFeediOS
 
 extension ListViewController {
     
-    public override func loadViewIfNeeded() {
-         super.loadViewIfNeeded()
+    func simulateAppearance() {
+        if !isViewLoaded {
+            loadViewIfNeeded()
+            prepareForFirstAppearance()
+        }
         
-         // tableView.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
+        beginAppearanceTransition(true, animated: false)
+        endAppearanceTransition()
+    }
+    
+    private func prepareForFirstAppearance() {
+        setSmallFrameToPreventRenderingCells()
+        replaceRefreshControlWithFakeForiOS17PlusSupport()
+    }
+    
+    private func setSmallFrameToPreventRenderingCells() {
+        tableView.frame = CGRect(x: 0, y: 0, width: 390, height: 1)
+    }
+    
+    private func replaceRefreshControlWithFakeForiOS17PlusSupport() {
+        let fakeRefreshControl = FakeRefreshControl()
+        
+        refreshControl?.allTargets.forEach { target in
+            refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach { action in
+                fakeRefreshControl.addTarget(target, action: Selector(action), for: .valueChanged)
+            }
+        }
+        
+        refreshControl = fakeRefreshControl
     }
     
     func simulateUserInitiateLoad() {
@@ -65,12 +90,12 @@ extension ListViewController {
     }
     
     private func commentView(at row: Int) -> ImageCommentCell? {
-       cell(row: row, section: commentsSection) as? ImageCommentCell
+        cell(row: row, section: commentsSection) as? ImageCommentCell
     }
     
     var commentsSection: Int { 0 }
 }
-   
+
 extension ListViewController {
     
     @discardableResult
@@ -85,6 +110,7 @@ extension ListViewController {
         let delegate = tableView.delegate
         let index = IndexPath(row: row, section: feedImageSection)
         delegate?.tableView?(tableView, didEndDisplaying: view!, forRowAt: index)
+        
         return view
     }
     
@@ -134,3 +160,16 @@ extension ListViewController {
     
 }
 
+private class FakeRefreshControl: UIRefreshControl {
+    private var _isRefreshing: Bool = false
+    
+    public override var isRefreshing: Bool { _isRefreshing }
+    
+    public override func beginRefreshing() {
+        _isRefreshing = true
+    }
+    
+    public override func endRefreshing() {
+        _isRefreshing = false
+    }
+}

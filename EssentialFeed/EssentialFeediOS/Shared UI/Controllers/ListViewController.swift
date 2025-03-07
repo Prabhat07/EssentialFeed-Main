@@ -21,12 +21,23 @@ final public class ListViewController: UITableViewController, UITableViewDataSou
         }
     }()
     
+    private var onViewDidAppear: ((ListViewController) -> Void)?
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = dataSource
         configureErrorView()
-        refresh()
+        
+        onViewDidAppear = { vc in
+            vc.onViewDidAppear = nil
+            vc.refresh()
+        }
+    }
+  
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        onViewDidAppear?(self)
     }
     
     public override func viewDidLayoutSubviews() {
@@ -68,7 +79,7 @@ final public class ListViewController: UITableViewController, UITableViewDataSou
             snapshot.appendSections([section])
             snapshot.appendItems(cellControllers, toSection: section)
         }
-        dataSource.apply(snapshot)
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
     
     public func display(_ viewModel: ResourceLoadingViewModel) {

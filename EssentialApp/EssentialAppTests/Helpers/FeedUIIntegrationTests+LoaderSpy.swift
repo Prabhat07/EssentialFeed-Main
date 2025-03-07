@@ -34,9 +34,11 @@ extension FeedUIIntegrationTests {
             feedRequests[index].send(Paginated(items: feed, loadMore: { [weak self] _ in
                 self?.loadMoreCallCount += 1
             }))
+            feedRequests[index].send(completion: .finished)
+
         }
         
-        func completeLoadingWithError(at index: Int = 0) {
+        func completeFeedLoadingWithError(at index: Int = 0) {
             let error = NSError(domain: "Any error", code: 0)
             feedRequests[index].send(completion: .failure(error))
         }
