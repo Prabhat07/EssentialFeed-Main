@@ -83,9 +83,7 @@ final public class ListViewController: UITableViewController, UITableViewDataSou
     }
     
     public func display(_ viewModel: ResourceLoadingViewModel) {
-        DispatchQueue.main.async { [weak self] in
-            self?.refreshControl?.update(isRefreshing: viewModel.isLoading)
-        }
+        refreshControl?.update(isRefreshing: viewModel.isLoading)
     }
     
     public func display(_ viewModel: ResourceErrorViewModel) {
@@ -104,10 +102,6 @@ final public class ListViewController: UITableViewController, UITableViewDataSou
     
     public override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let dl = cellController(at: indexPath)?.delegate
-        print("Cell type \(dl.debugDescription)")
-        if ((dl as? LoadMoreCellController) != nil) {
-            print("Loadmore")
-        }
         dl?.tableView?(tableView, willDisplay: cell, forRowAt: indexPath)
     }
     
