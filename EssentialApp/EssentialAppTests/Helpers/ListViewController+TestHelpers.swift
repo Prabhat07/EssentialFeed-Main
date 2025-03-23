@@ -11,36 +11,35 @@ import EssentialFeediOS
 extension ListViewController {
     
     func simulateAppearance() {
-            if !isViewLoaded {
-                loadViewIfNeeded()
-                prepareForFirstAppearance()
+        if !isViewLoaded {
+            loadViewIfNeeded()
+            prepareForFirstAppearance()
+        }
+        
+        beginAppearanceTransition(true, animated: false)
+        endAppearanceTransition()
+    }
+    
+    private func prepareForFirstAppearance() {
+        setSmallFrameToPreventRenderingCells()
+        replaceRefreshControlWithFakeForiOS17PlusSupport()
+    }
+    
+    private func setSmallFrameToPreventRenderingCells() {
+        tableView.frame = CGRect(x: 0, y: 0, width: 390, height: 1)
+    }
+    
+    private func replaceRefreshControlWithFakeForiOS17PlusSupport() {
+        let fakeRefreshControl = FakeRefreshControl()
+        
+        refreshControl?.allTargets.forEach { target in
+            refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach { action in
+                fakeRefreshControl.addTarget(target, action: Selector(action), for: .valueChanged)
             }
-            
-            beginAppearanceTransition(true, animated: false)
-            endAppearanceTransition()
         }
         
-        private func prepareForFirstAppearance() {
-            setSmallFrameToPreventRenderingCells()
-            replaceRefreshControlWithFakeForiOS17PlusSupport()
-        }
-        
-        private func setSmallFrameToPreventRenderingCells() {
-            tableView.frame = CGRect(x: 0, y: 0, width: 390, height: 1)
-        }
-        
-        private func replaceRefreshControlWithFakeForiOS17PlusSupport() {
-            let fakeRefreshControl = FakeRefreshControl()
-            
-            refreshControl?.allTargets.forEach { target in
-                refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach { action in
-                    fakeRefreshControl.addTarget(target, action: Selector(action), for: .valueChanged)
-                }
-            }
-            
-            refreshControl = fakeRefreshControl
-        }
-        
+        refreshControl = fakeRefreshControl
+    }
     
     func simulateUserInitiateLoad() {
         refreshControl?.simulatePullToRefresh()
@@ -91,12 +90,12 @@ extension ListViewController {
     }
     
     private func commentView(at row: Int) -> ImageCommentCell? {
-       cell(row: row, section: commentsSection) as? ImageCommentCell
+        cell(row: row, section: commentsSection) as? ImageCommentCell
     }
     
     var commentsSection: Int { 0 }
 }
-   
+
 extension ListViewController {
     
     @discardableResult
@@ -116,8 +115,6 @@ extension ListViewController {
     }
     
     func simulateTapOnFeedImage(at row: Int) {
-        let view = simulateFeedImageViewVisible(at: row)
-        
         let delegate = tableView.delegate
         let index = IndexPath(row: row, section: feedImageSection)
         delegate?.tableView?(tableView, didSelectRowAt: index)
@@ -136,6 +133,36 @@ extension ListViewController {
         ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
     }
     
+    func simulateLoadMoreFeedAction() {
+        guard let view = loadMoreCell() else { return }
+        
+        let delegate = tableView.delegate
+        let index = IndexPath(row: 0, section: feedLoadMoreSection)
+        delegate?.tableView?(tableView, willDisplay: view, forRowAt: index)
+    }
+    
+    func simulateTapOnLoadMoreFeedError() {
+        let delegate = tableView.delegate
+        let index = IndexPath(row: 0, section: feedLoadMoreSection)
+        delegate?.tableView?(tableView, didSelectRowAt: index)
+    }
+    
+    var isShowingLoadMoreFeedIndicator: Bool {
+        return loadMoreCell()?.isLoading == true
+    }
+    
+    var loadMoreFeedErrorMessage: String? {
+        loadMoreCell()?.message
+    }
+    
+    var canLoadMoreFeed: Bool {
+        loadMoreCell() != nil
+    }
+    
+    private func loadMoreCell() -> LoadMoreCell? {
+        cell(row: 0, section: feedLoadMoreSection) as? LoadMoreCell
+    }
+    
     func renderedFeedImageData(at index: Int) -> Data? {
         return simulateFeedImageViewVisible(at: index)?.renderedImage
     }
@@ -144,7 +171,9 @@ extension ListViewController {
         numberOfRows(in: feedImageSection)
     }
     
-    var feedImageSection: Int { 0 }
+    private var feedImageSection: Int { 0 }
+    
+    private var feedLoadMoreSection: Int { 1 }
     
     func feedImageView(at row: Int) -> UITableViewCell? {
         cell(row: row, section: feedImageSection)
