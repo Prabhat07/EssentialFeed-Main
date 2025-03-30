@@ -152,32 +152,23 @@ class EssentialFeedCacheIntegrationTests: XCTestCase {
         wait(for: [saveExp], timeout: 1.0)
     }
     
-    private func save(_ data: Data, for url: URL, with loader: LocalFeedImageDataLoader, file: StaticString = #file, line: UInt = #line) {
-        let saveExp = expectation(description: "Wait for save completion")
-        loader.save(data, for: url) { result in
-            if case let Result.failure(error) = result {
+    private func save(_ data: Data, for url: URL, with loader: LocalFeedImageDataLoader, file: StaticString = #filePath, line: UInt = #line) {
+            do {
+                try loader.save(data, for: url)
+            } catch {
                 XCTFail("Expected to save image data successfully, got error: \(error)", file: file, line: line)
             }
-            saveExp.fulfill()
         }
-        wait(for: [saveExp], timeout: 1.0)
-    }
-    
-    private func expect(_ sut: LocalFeedImageDataLoader, toLoad expectedData: Data, for url: URL, file: StaticString = #file, line: UInt = #line) {
-        let exp = expectation(description: "Wait for load completion")
-        _ = sut.loadImageData(from: url) { result in
-            switch result {
-            case let .success(loadedData):
+        
+        private func expect(_ sut: LocalFeedImageDataLoader, toLoad expectedData: Data, for url: URL, file: StaticString = #filePath, line: UInt = #line) {
+            do {
+                let loadedData = try sut.loadImageData(from: url)
                 XCTAssertEqual(loadedData, expectedData, file: file, line: line)
-                
-            case let .failure(error):
+            } catch {
                 XCTFail("Expected successful image data result, got \(error) instead", file: file, line: line)
             }
-            
-            exp.fulfill()
         }
-        wait(for: [exp], timeout: 1.0)
-    }
+        
     
     private func validateCache(with loader: LocalFeedLoader, file: StaticString = #file, line: UInt = #line) {
         let saveExp = expectation(description: "Wait for save completion")
