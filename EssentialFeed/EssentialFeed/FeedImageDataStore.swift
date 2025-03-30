@@ -37,7 +37,7 @@ public extension FeedImageDataStore {
         return try result.get()
     }
     
-    func retrive(_ url: URL) throws -> Data? {
+    func retrieve(dataForURL url: URL) throws -> Data? {
         let group = DispatchGroup()
         group.enter()
         var result: RetrievalResult!
